@@ -1,0 +1,125 @@
+﻿<Window x:Class="Setpad.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="clr-namespace:Pad.Core;assembly=Pad.Core"
+        xmlns:ui="clr-namespace:Setpad.UI;assembly=setpad"
+		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
+        Title="Setpad" Height="429" Width="761" Icon="Properties/Mining.ico">
+    
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="Close_Executed" />
+        <CommandBinding Command="ui:Commands.Open" Executed="Open_Executed" />
+		<CommandBinding Command="ui:Commands.ClearScratch" Executed="ClearScratch_Executed" />
+		<CommandBinding Command="ui:Commands.CreateSetFromMatches" Executed="CreateSetFromMatches_Executed" />
+		<CommandBinding Command="ui:Commands.UnionSets" Executed="UnionSets_Executed" />
+		<CommandBinding Command="ui:Commands.IntersectSets" Executed="IntersectSets_Executed" />
+		<CommandBinding Command="ui:Commands.DifferenceSets" Executed="DifferenceSets_Executed" />
+		<CommandBinding Command="ui:Commands.SymmetricDifferenceSets" Executed="SymmetricDifferenceSets_Executed" />
+		<CommandBinding Command="ui:Commands.RemoveSets" Executed="RemoveSets_Executed" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="ui:Commands.Find"/>
+		<KeyBinding Key="F6" Command="ui:Commands.CreateSetFromMatches"/>
+        <KeyBinding Key="I" Modifiers="Ctrl" Command="ui:Commands.Move"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+
+		<Menu>
+			<Menu.Resources>
+				<Style x:Key="FindSubMenuItems" TargetType="MenuItem">
+					<Setter Property="Command" Value="ui:Commands.FindAs" />
+					<Setter Property="CommandParameter" Value="{Binding Name}" />
+					<Setter Property="ToolTip" Value="{Binding Description}" />
+				</Style>
+				<Style x:Key="OpenSubMenuItems" TargetType="MenuItem">
+					<Setter Property="Command" Value="ui:Commands.Open" />
+					<Setter Property="CommandParameter" Value="{Binding Name}" />
+				</Style>
+			</Menu.Resources>
+			<MenuItem Header="_File">
+				<MenuItem Header="_Open" />
+				<Separator />
+				<MenuItem Header="E_xit" Command="Close" InputGestureText="Alt+F4" />
+			</MenuItem>
+
+			<MenuItem Header="_Sets" >
+				<MenuItem Header="_Create From Matches" Command="ui:Commands.CreateSetFromMatches" InputGestureText="F6" />
+			</MenuItem>
+		</Menu>
+
+		<Grid Grid.Row="1">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="auto" />
+				<ColumnDefinition Width="200" />
+			</Grid.ColumnDefinitions>
+
+			<RichTextBox Grid.Column="0" x:Name="results" IsReadOnly="true" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" />
+
+			<GridSplitter HorizontalAlignment="Right" 
+                VerticalAlignment="Stretch" 
+                Grid.Column="1" ResizeBehavior="BasedOnAlignment"
+                Width="5" />
+
+			<ListView Grid.Column="2" x:Name="setlist" ItemsSource="{Binding Path=Sets}"
+					  ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedSets}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn DisplayMemberBinding="{Binding Name}"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Count}"/>
+					</GridView>
+				</ListView.View>
+				<ListView.Resources>
+					<Style TargetType="ListViewItem">
+						<Setter Property="ContextMenu">
+							<Setter.Value>
+								<ContextMenu DataContext="{Binding Path=PlacementTarget.ListView.DataContext, RelativeSource={RelativeSource Self}}">
+									<MenuItem Header="Union" Command="ui:Commands.UnionSets" />
+									<MenuItem Header="Intersect" Command="ui:Commands.IntersectSets" />
+									<MenuItem Header="Difference" Command="ui:Commands.DifferenceSets" />
+									<MenuItem Header="Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
+									<Separator />
+									<MenuItem Header="Remove" Command="ui:Commands.RemoveSets" />
+								</ContextMenu>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</ListView.Resources>
+			</ListView>
+
+		</Grid>
+         
+        <StatusBar Grid.Row="2">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock>Ready</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}},Path=MatchInfo}"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <ProgressBar Width="120" Height="18" />
+            </StatusBarItem>
+        </StatusBar>
+        
+    </Grid>
+</Window>

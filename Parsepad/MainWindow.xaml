@@ -1,0 +1,164 @@
+﻿<Window x:Class="Parsepad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="clr-namespace:Pad.Core;assembly=Pad.Core"
+        xmlns:ui="clr-namespace:Parsepad"
+		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
+		xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        Title="Parsepad" Height="429" Width="761">
+
+
+	<Window.CommandBindings>
+		<CommandBinding Command="Close" Executed="Close_Executed" />
+		<CommandBinding Command="ui:Commands.Find" CanExecute="Find_CanExecute" Executed="Find_Executed" />
+		<CommandBinding Command="ui:Commands.CopyAs" Executed="CopyAs_Executed" />
+		<CommandBinding Command="ui:Commands.Open" Executed="Open_Executed" />
+		<CommandBinding Command="ui:Commands.Move" CanExecute="Move_CanExecute" Executed="Move_Executed" />
+		<CommandBinding Command="ui:Commands.ClearScratch" Executed="ClearScratch_Executed" />
+	</Window.CommandBindings>
+
+	<Window.InputBindings>
+		<KeyBinding Key="F5" Command="ui:Commands.Find"/>
+		<KeyBinding Key="I" Modifiers="Ctrl" Command="ui:Commands.Move"/>
+	</Window.InputBindings>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="24" />
+			<RowDefinition Height="28" />
+			<RowDefinition Height="28" />
+			<RowDefinition />
+			<RowDefinition Height="24" />
+		</Grid.RowDefinitions>
+
+		<ToolBarTray Grid.Row="1">
+			<ToolBar>
+				<Button Command="New">
+					<Image Source="Images\NewFile_6276.png" />
+				</Button>
+				<Button Command="Copy">
+					<Image Source="Images\Copy_6524.png" />
+				</Button>
+				<Button Command="Paste">
+					<Image Source="Images\Paste_6520.png" />
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+
+		<Menu>
+			<Menu.Resources>
+				<Style x:Key="FindSubMenuItems" TargetType="MenuItem">
+					<Setter Property="Command" Value="ui:Commands.CopyAs" />
+					<Setter Property="CommandParameter" Value="{Binding Name}" />
+					<Setter Property="ToolTip" Value="{Binding Description}" />
+				</Style>
+				<Style x:Key="OpenSubMenuItems" TargetType="MenuItem">
+					<Setter Property="Command" Value="ui:Commands.Open" />
+					<Setter Property="CommandParameter" Value="{Binding Name}" />
+				</Style>
+			</Menu.Resources>
+			<MenuItem Header="_File">
+				<MenuItem Header="_Open" />
+				<Separator />
+				<MenuItem Header="_Clear" Command="ui:Commands.ClearScratch" />
+				<Separator />
+				<MenuItem Header="E_xit" Command="Close" InputGestureText="Alt+F4" />
+			</MenuItem>
+			<MenuItem Header="_Regex">
+				<MenuItem Header="_Load"  ItemsSource="{Binding Source={x:Static Member=core:RegexManager.PersistedRegexes}}"
+                          ItemContainerStyle="{StaticResource OpenSubMenuItems}" />
+				<Separator />
+				<MenuItem Header="_Clear" Click="New_Click" InputGestureText="Ctrl+N" />
+				<Separator />
+				<MenuItem Header="_Save As..." Click="SaveRegex_Click" />
+				<Separator />
+				<MenuItem Header="_Options">
+					<MenuItem Header="Ignore _Case" IsChecked="{Binding Path=RegexOptions.IgnoreCase}" Click="ignoreCase_Click" />
+					<MenuItem Header="_Multiline Mode" IsChecked="{Binding Path=RegexOptions.Multiline}" Click="multiline_Click" />
+					<MenuItem Header="_Single-line Mode" IsChecked="{Binding Path=RegexOptions.Singleline}" Click="singleline_Click" />
+					<MenuItem Header="_Right-to-Left Mode" IsChecked="{Binding Path=RegexOptions.RightToLeft}" Click="rightToLeft_Click" />
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_Matches">
+				<MenuItem Header="_Find" Command="ui:Commands.Find" InputGestureText="F5" />
+				<Separator/>
+				<MenuItem Header="_Copy" InputGestureText="Ctrl+C" Command="Copy" />
+				<MenuItem Header="_Copy As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
+                          ItemContainerStyle="{StaticResource FindSubMenuItems}" />
+				<MenuItem Header="Move to _Input" InputGestureText="Ctrl+I" Command="ui:Commands.Move" />
+				<Separator />
+				<MenuItem Header="_Options">
+					<MenuItem Header="Remove _Duplicates" ToolTip="If enabled, eliminated duplicates from copied results" 
+                          IsChecked="{Binding Path=MatchOptions.RemoveDuplicates}" Click="removeDuplicates_Click"/>
+					<MenuItem Header="Remove _Empty Strings" IsChecked="{Binding Path=MatchOptions.RemoveEmptyStrings}" Click="removeEmptyStrings_Click" />
+					<MenuItem Header="Remove _Whitespace Strings" IsChecked="{Binding Path=MatchOptions.RemoveWhitespaceStrings}" Click="removeWhitespaceStrings_Click" />
+					<MenuItem Header="_Sort Results" ToolTip="If enabled, sorts items alphabetically, otherwise maintains the order in which matches occur in the data" 
+                          IsChecked="{Binding Path=MatchOptions.Sort}" Click="sort_Click"/>
+				</MenuItem>
+			</MenuItem>
+		</Menu>
+
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<toolkit:AutoCompleteBox x:Name="pattern" Text="{Binding Path=Pattern, Mode=TwoWay}"
+				Foreground="{Binding Path=PatternForeground}"
+				ToolTip="Enter the path of an assembly."
+				FontSize="14" FontWeight="Bold" FontFamily="Consolas" 
+				Populating="pattern_Populating" />
+
+			<Label Grid.Column="1" FontFamily="Wingdings 3" FontSize="18">Æ</Label>
+
+			<TextBox x:Name="format" Grid.Column="2" FontSize="14" FontWeight="Bold" FontFamily="Consolas" Text="{Binding Path=Format, Mode=TwoWay}" />
+
+		</Grid>
+
+		<Grid Grid.Row="3">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="auto" />
+				<ColumnDefinition Width="200" />
+			</Grid.ColumnDefinitions>
+
+			<RichTextBox x:Name="scratch" Grid.Column="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" />
+
+			<GridSplitter HorizontalAlignment="Right" 
+                VerticalAlignment="Stretch" 
+                Grid.Column="1" ResizeBehavior="PreviousAndNext"
+                Width="5" />
+
+			<TextBox Grid.Column="2" x:Name="results" 
+					 Text="{Binding Path=Results}"
+					 IsReadOnly="true" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" Grid.ColumnSpan="2" />
+		</Grid>
+
+		<StatusBar Grid.Row="4">
+			<StatusBar.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition Width="100" />
+							<ColumnDefinition Width="auto"/>
+						</Grid.ColumnDefinitions>
+					</Grid>
+				</ItemsPanelTemplate>
+			</StatusBar.ItemsPanel>
+			<StatusBarItem>
+				<TextBlock>Ready</TextBlock>
+			</StatusBarItem>
+			<StatusBarItem Grid.Column="1">
+				<TextBlock Text="{Binding Path=MatchInfo}"></TextBlock>
+			</StatusBarItem>
+			<StatusBarItem Grid.Column="2">
+				<ProgressBar Width="120" Height="18" />
+			</StatusBarItem>
+		</StatusBar>
+
+	</Grid>
+</Window>
