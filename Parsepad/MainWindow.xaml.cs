@@ -62,7 +62,7 @@ namespace Parsepad
 
 		private void Find()
 		{
-			searchText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
+			searchText.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 			ViewModel.Parse();
 		}
 
@@ -89,7 +89,7 @@ namespace Parsepad
 			//}
 
 			pattern.ItemsSource = RegexManager.GetRecent();
-			pattern.PopulateComplete();
+			//pattern.PopulateComplete();
 		}
 
 		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)

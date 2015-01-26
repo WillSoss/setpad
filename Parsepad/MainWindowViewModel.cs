@@ -147,6 +147,9 @@ namespace Parsepad
 		public MainWindowViewModel()
 		{
 			PatternForeground = Brushes.Black;
+
+			foreach (var s in RegexManager.GetRecent())
+				Patterns.Add(s);
 		}
 
 		private void OnPatternChanged()

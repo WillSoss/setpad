@@ -29,7 +29,6 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="24" />
-			<RowDefinition Height="28" />
 			<RowDefinition />
 			<RowDefinition Height="24" />
 		</Grid.RowDefinitions>
@@ -81,29 +80,11 @@
 		</Menu>
 
 		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="auto" />
-			</Grid.ColumnDefinitions>
-
-			<toolkit:AutoCompleteBox x:Name="pattern" Text="{Binding Path=Pattern, Mode=OneWayToSource}"
-				Foreground="{Binding Path=PatternForeground}"
-				ToolTip="Enter the path of an assembly."
-				FontSize="14" FontWeight="Bold" FontFamily="Consolas" 
-				Populating="pattern_Populating" />
-
-			<Expander ExpandDirection="Left" Grid.Column="1" >
-				<TextBox x:Name="format" Width="300" FontSize="14" FontWeight="Bold" FontFamily="Consolas" Text="{Binding Path=Format, Mode=OneWayToSource}" />
-			</Expander>			
-
-		</Grid>
-
-		<Grid Grid.Row="2">
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
+				<ColumnDefinition Width="2*" />
 				<ColumnDefinition Width="auto" />
-				<ColumnDefinition Width="200" />
+				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
 			<TextBox x:Name="searchText" Grid.Column="0" 
@@ -123,13 +104,27 @@
                 Grid.Column="1" ResizeBehavior="PreviousAndNext"
                 Width="5" />
 
-			<ListBox x:Name="results" Grid.Column="2" ItemsSource="{Binding Path=Matches}" SelectionChanged="MatchSelected" />
-			<!--<TextBox Grid.Column="2" x:Name="results" 
-					 Text="{Binding Path=Results}"
-					 IsReadOnly="true" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" />-->
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto" />
+					<RowDefinition Height="auto" />
+					<RowDefinition />					
+				</Grid.RowDefinitions>
+
+				<ComboBox IsEditable="True" ItemsSource="{Binding Path=Patterns}" Grid.Row="0" x:Name="pattern" Text="{Binding Path=Pattern, Mode=OneWayToSource}"
+					Foreground="{Binding Path=PatternForeground}"
+					ToolTip="Enter the path of an assembly."
+					FontSize="14" FontWeight="Bold" FontFamily="Consolas" />
+
+				<toolkit:AutoCompleteBox Grid.Row="1" x:Name="format" FontSize="14" FontWeight="Bold" FontFamily="Consolas" Text="{Binding Path=Format, Mode=OneWayToSource}" />
+				
+			
+				<ListBox Grid.Row="2" x:Name="results" ItemsSource="{Binding Path=Matches}" SelectionChanged="MatchSelected" />
+
+			</Grid>
 		</Grid>
 
-		<StatusBar Grid.Row="3">
+		<StatusBar Grid.Row="2">
 			<StatusBar.ItemsPanel>
 				<ItemsPanelTemplate>
 					<Grid>
