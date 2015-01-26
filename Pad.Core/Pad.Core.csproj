@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="CalculatedSet.cs" />
     <Compile Include="DataParser.cs" />
-    <Compile Include="FormattedMatchCollection.cs" />
     <Compile Include="NamedSet.cs" />
     <Compile Include="ListFlattener.cs" />
     <Compile Include="ListFlatteners\CSharpStringArray.cs" />
@@ -55,8 +54,8 @@
     <Compile Include="ListFlatteners\SqlUnion.cs" />
     <Compile Include="ListFlatteners\TextWithLinebreaks.cs" />
     <Compile Include="LogicalTreeUtility.cs" />
-    <Compile Include="FormattedMatch.cs" />
     <Compile Include="NamedRegex.cs" />
+    <Compile Include="PatternMatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawSet.cs" />
     <Compile Include="RegexManager.cs" />

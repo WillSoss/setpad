@@ -11,7 +11,7 @@ namespace Pad.Core
 		private static readonly ReaderWriterLockSlim initLock = new ReaderWriterLockSlim();
 		private static ListFlattener[] flatteners;
 
-		public static ListFlattener Default
+		public static ListFlattener TextWithLinebreaks
 		{
 			get { return All.Single(f => f is ListFlatteners.TextWithLinebreaks); }
 		}

@@ -9,6 +9,7 @@ namespace Parsepad
 	public static class Commands
 	{
 		public static RoutedCommand Find = new RoutedCommand();
+		public static RoutedCommand Copy = new RoutedCommand();
 		public static RoutedCommand CopyAs = new RoutedCommand();
 		public static RoutedCommand Open = new RoutedCommand();
 		public static RoutedCommand Move = new RoutedCommand();

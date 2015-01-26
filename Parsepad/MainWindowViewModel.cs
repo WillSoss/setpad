@@ -17,13 +17,12 @@ namespace Parsepad
 		private readonly RegexOptionsViewModel regexOptions = new RegexOptionsViewModel();
 		private readonly MatchOptionsViewModel matchOptions = new MatchOptionsViewModel();
 		private readonly ObservableCollection<string> patterns = new ObservableCollection<string>();
+		private readonly ObservableCollection<PatternMatch> matches = new ObservableCollection<PatternMatch>();
 
 		private string pattern;
 		private bool isPatternValid;
 		private string format;
-		private FlowDocument scratch;
-		private string results;
-		private List<string> matches;
+		private string searchText;
 
 		private Brush patternForeground;
 		private string matchInfo;
@@ -41,6 +40,11 @@ namespace Parsepad
 		public ObservableCollection<string> Patterns
 		{
 			get { return patterns; }
+		}
+
+		public ObservableCollection<PatternMatch> Matches
+		{
+			get { return matches; }
 		}
 
 		public string Pattern
@@ -86,30 +90,17 @@ namespace Parsepad
 			}
 		}
 
-		public FlowDocument Scratch
+		public string SearchText
 		{
-			get { return scratch; }
+			get { return searchText; }
 			set
 			{
-				if (scratch != value)
+				if (searchText != value)
 				{
-					scratch = value;
+					searchText = value;
 
-					OnPropertyChanged("Scratch");
-				}
-			}
-		}
-
-		public string Results
-		{
-			get { return results; }
-			set
-			{
-				if (results != value)
-				{
-					results = value;
-
-					OnPropertyChanged("Results");
+					ClearMatches();
+					OnPropertyChanged("SearchText");
 				}
 			}
 		}
@@ -189,11 +180,17 @@ namespace Parsepad
 			}
 		}
 
+		public void ClearMatches()
+		{
+			MatchInfo = string.Empty;
+			Matches.Clear();
+		}
+
 		public void Parse()
 		{
 			MatchInfo = "Finding matches";
 
-			var parser = new DataParser(RegexManager.GetRegex(Pattern, PatternOptions), Format, new TextRange(Scratch.ContentStart, Scratch.ContentEnd).Text);
+			var parser = new DataParser(RegexManager.GetRegex(Pattern, PatternOptions), Format, SearchText);
 
 			//var defaultCursor = Cursor;
 			//Cursor = System.Windows.Input.Cursors.Wait;
@@ -207,20 +204,23 @@ namespace Parsepad
 				var query = unfiltered.AsQueryable();
 
 				if (MatchOptions.RemoveEmptyStrings)
-					query = query.Where(s => !string.IsNullOrEmpty(s));
+					query = query.Where(s => !string.IsNullOrEmpty(s.FormattedText));
 
 				if (MatchOptions.RemoveWhitespaceStrings)
-					query = query.Where(s => !string.IsNullOrWhiteSpace(s));
+					query = query.Where(s => !string.IsNullOrWhiteSpace(s.FormattedText));
 
 				if (MatchOptions.RemoveDuplicates)
 					query = query.Distinct();
 
 				if (matchOptions.Sort)
-					query = query.OrderBy(s => s);
+					query = query.OrderBy(s => s.FormattedText);
 
-				matches = query.ToList();
+				matches.Clear();
 
-				Results = ListFlattener.Default.GetString(matches);
+				foreach (var m in query)
+					matches.Add(m);
+
+				//Results = ListFlattener.TextWithLinebreaks.GetString(matches);
 
 				MatchInfo = string.Format("{0} matches", matches.Count());
 			}
@@ -230,7 +230,14 @@ namespace Parsepad
 
 		public void Copy(ListFlattener flattener)
 		{
-			Clipboard.SetText(flattener.GetString(matches));
+			Clipboard.SetText(flattener.GetString(matches.Select(m => m.FormattedText)));
+		}
+
+		public void MoveResultsToInput()
+		{
+			SearchText = ListFlattener.TextWithLinebreaks.GetString(matches.Select(m => m.FormattedText));
+			Matches.Clear();
+			MatchInfo = string.Empty;
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace Parsepad
 			this.ViewModel = new MainWindowViewModel();
 			this.DataContext = this.ViewModel;
 
-			ViewModel.Scratch = scratch.Document;
+			//ViewModel.Scratch = scratch.Document;
 		}
 
 		private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -50,6 +50,11 @@ namespace Parsepad
 			Find();
 		}
 
+		private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.Copy(ListFlattener.TextWithLinebreaks);
+		}
+
 		private void CopyAs_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			ViewModel.Copy(ListFlattener.All.Single(lf => lf.Name == (string)e.Parameter));
@@ -57,6 +62,7 @@ namespace Parsepad
 
 		private void Find()
 		{
+			searchText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
 			ViewModel.Parse();
 		}
 
@@ -95,19 +101,17 @@ namespace Parsepad
 
 		private void ClearScratch_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			scratch.Document = new FlowDocument();
+			searchText.Clear();
 		}
 
-		private void Move_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		private void HasResults(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = !string.IsNullOrEmpty(ViewModel.Results);
+			e.CanExecute = ViewModel.Matches.Count > 0;
 		}
 
 		private void Move_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			scratch.Document.Blocks.Clear();
-			scratch.Document.Blocks.Add(new Paragraph(new Run(ViewModel.Results)));
-			results.Clear();
+			ViewModel.MoveResultsToInput();
 		}
 
 		private void SaveRegex_Click(object sender, RoutedEventArgs e)
@@ -118,11 +122,6 @@ namespace Parsepad
 
 			//if (regexWindow.ShowDialog() ?? false)
 			//	RegexManager.Persist(regexWindow.RegexName, regexWindow.Regex);
-		}
-
-		private void New_Click(object sender, RoutedEventArgs e)
-		{
-			pattern.Text = string.Empty;
 		}
 
 		private void ignoreCase_Click(object sender, RoutedEventArgs e)
@@ -163,6 +162,22 @@ namespace Parsepad
 		private void sort_Click(object sender, RoutedEventArgs e)
 		{
 			ViewModel.MatchOptions.Sort = !ViewModel.MatchOptions.Sort;
+		}
+
+		private void MatchSelected(object sender, SelectionChangedEventArgs e)
+		{
+			var match = results.SelectedItem as PatternMatch;
+
+			if (match != null)
+			{
+				searchText.ScrollToLine(searchText.GetLineIndexFromCharacterIndex(match.Position));
+				searchText.Select(match.Position, match.Length);
+			}
+		}
+
+		private void searchText_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			ViewModel.ClearMatches();
 		}
 	}
 }

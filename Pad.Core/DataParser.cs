@@ -31,7 +31,7 @@ namespace Pad.Core
 			matches = Regex.Matches(Text);
 		}
 
-		public IEnumerable<string> GetMatches()
+		public IEnumerable<PatternMatch> GetMatches()
 		{
 			List<string> results = new List<string>();
 
@@ -50,14 +50,14 @@ namespace Pad.Core
 			{
 				if (string.IsNullOrEmpty(format))
 				{
-					yield return m.Value;
+					yield return new PatternMatch(m.Value, m.Value, m.Index, m.Length);
 				}
 				else
 				{
 					object[] groups = new object[m.Groups.Count];
 					m.Groups.CopyTo(groups, 0);
 
-					yield return string.Format(format, groups);
+					yield return new PatternMatch(m.Value, string.Format(format, groups), m.Index, m.Length);
 				}
 			}
 		}

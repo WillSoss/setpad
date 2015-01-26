@@ -106,7 +106,7 @@
       <Project>{cfbfddb1-cc3d-49ae-a646-98ba79e15da8}</Project>
       <Name>Pad.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Setpad.Core\Pad.Core.csproj">
+    <ProjectReference Include="..\Pad.Core\Pad.Core.csproj">
       <Project>{523CE197-B94B-4FDE-8B71-0A7A8A5B35A2}</Project>
       <Name>Pad.Core</Name>
     </ProjectReference>
