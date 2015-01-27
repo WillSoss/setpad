@@ -51,6 +51,13 @@
 				<Separator />
 				<MenuItem Header="E_xit" Command="Close" InputGestureText="Alt+F4" />
 			</MenuItem>
+			<MenuItem Header="_Edit">
+				<MenuItem Header="Cu_t" Command="Cut" InputGestureText="Ctrl+X" />
+				<MenuItem Header="_Copy" Command="Copy" InputGestureText="Ctrl+C" />
+				<MenuItem Header="_Paste" Command="Paste" InputGestureText="Ctrl+V" />
+				<Separator />
+				<MenuItem Header="_Options..." />
+			</MenuItem>
 			<MenuItem Header="_Regex">
 				<MenuItem Header="_Load"  ItemsSource="{Binding Source={x:Static Member=core:RegexManager.PersistedRegexes}}"
                           ItemContainerStyle="{StaticResource OpenSubMenuItems}" />
@@ -65,7 +72,7 @@
 			<MenuItem Header="_Matches">
 				<MenuItem Header="_Find" Command="ui:Commands.Find" InputGestureText="F5" />
 				<Separator/>
-				<MenuItem Header="_Copy" InputGestureText="Ctrl+C" Command="ui:Commands.Copy" />
+				<MenuItem Header="_Copy" Command="ui:Commands.Copy" />
 				<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
                           ItemContainerStyle="{StaticResource CopyAsItems}" />
 				<MenuItem Header="Move to _Input" InputGestureText="Ctrl+I" Command="ui:Commands.Move" />
@@ -93,7 +100,6 @@
 					 AcceptsReturn="True"
 					 HorizontalScrollBarVisibility="Visible" 
 					 VerticalScrollBarVisibility="Auto" 
-					 FontFamily="Consolas"
 					 IsInactiveSelectionHighlightEnabled="True"
 					 SelectionBrush="Blue"
 					 TextChanged="searchText_TextChanged"
@@ -113,10 +119,13 @@
 
 				<ComboBox IsEditable="True" ItemsSource="{Binding Path=Patterns}" Grid.Row="0" x:Name="pattern" Text="{Binding Path=Pattern, Mode=OneWayToSource}"
 					Foreground="{Binding Path=PatternForeground}"
-					ToolTip="Enter the path of an assembly."
-					FontSize="14" FontWeight="Bold" FontFamily="Consolas" />
+					ToolTip="Regular Expression (e.g. (?&lt;firstName>\w+)\W(?&lt;lastName>\w+))"
+					FontWeight="Bold" Margin="0,0,0,5" />
 
-				<toolkit:AutoCompleteBox Grid.Row="1" x:Name="format" FontSize="14" FontWeight="Bold" FontFamily="Consolas" Text="{Binding Path=Format, Mode=OneWayToSource}" />
+				<ComboBox IsEditable="True" Grid.Row="1" x:Name="format" 
+						  FontWeight="Bold"  
+						  Text="{Binding Path=Format, Mode=OneWayToSource}"
+						  ToolTip="Format (e.g. &lt;lastName>, &lt;firstName>)" Margin="0,0,0,5"/>
 				
 			
 				<ListBox Grid.Row="2" x:Name="results" ItemsSource="{Binding Path=Matches}" SelectionChanged="MatchSelected" />
@@ -130,7 +139,6 @@
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
-							<ColumnDefinition Width="100" />
 							<ColumnDefinition Width="auto"/>
 						</Grid.ColumnDefinitions>
 					</Grid>
@@ -141,9 +149,6 @@
 			</StatusBarItem>
 			<StatusBarItem Grid.Column="1">
 				<TextBlock Text="{Binding Path=MatchInfo}"></TextBlock>
-			</StatusBarItem>
-			<StatusBarItem Grid.Column="2">
-				<ProgressBar Width="120" Height="18" />
 			</StatusBarItem>
 		</StatusBar>
 

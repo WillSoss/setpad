@@ -66,32 +66,6 @@ namespace Parsepad
 			ViewModel.Parse();
 		}
 
-		private void pattern_Populating(object sender, PopulatingEventArgs e)
-		{
-			//string text = tbAssembly.Text;
-			//string dirname = Path.GetDirectoryName(text);
-
-			//if (Directory.Exists(Path.GetDirectoryName(dirname)))
-			//{
-			//	string[] files = Directory.GetFiles(dirname, "*.*", SearchOption.TopDirectoryOnly);
-			//	string[] dirs = Directory.GetDirectories(dirname, "*.*", SearchOption.TopDirectoryOnly);
-			//	var candidates = new List<string>();
-
-			//	Array.ForEach(new String[][] { files, dirs }, (x) =>
-			//		Array.ForEach(x, (y) =>
-			//		{
-			//			if (y.StartsWith(dirname, StringComparison.CurrentCultureIgnoreCase))
-			//				candidates.Add(y);
-			//		}));
-
-			//	tbAssembly.ItemsSource = candidates;
-			//	tbAssembly.PopulateComplete();
-			//}
-
-			pattern.ItemsSource = RegexManager.GetRecent();
-			//pattern.PopulateComplete();
-		}
-
 		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			var namedRegex = RegexManager.PersistedRegexes.Single(nr => nr.Name == (string)e.Parameter);
