@@ -15,6 +15,8 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Pad.Core;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Setpad.UI
 {
@@ -78,7 +80,23 @@ namespace Setpad.UI
 
 		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
+			var dialog = new OpenFileDialog();
+			dialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
 
+			if (dialog.ShowDialog(this) ?? false)
+			{
+				var set = new List<string>();
+
+				using (var reader = new StreamReader(File.OpenRead(dialog.FileName)))
+				{
+					while (!reader.EndOfStream)
+					{
+						set.Add(reader.ReadLine());
+					}
+				}
+
+				ViewModel.AddRawSet(set);
+			}
 		}
 
 		private void ClearScratch_Executed(object sender, ExecutedRoutedEventArgs e)

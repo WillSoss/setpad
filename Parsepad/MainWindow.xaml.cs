@@ -15,6 +15,8 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Pad.Core;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Parsepad
 {
@@ -42,7 +44,7 @@ namespace Parsepad
 
 		private void Find_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = ViewModel.IsPatternValid;
+			e.CanExecute = ViewModel.CanParse();
 		}
 
 		private void Find_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -62,15 +64,15 @@ namespace Parsepad
 
 		private void Find()
 		{
-			searchText.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 			ViewModel.Parse();
 		}
 
-		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void LoadPattern_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			var namedRegex = RegexManager.PersistedRegexes.Single(nr => nr.Name == (string)e.Parameter);
+			var namedRegex = ViewModel.Patterns.Saved.Single(nr => nr.Name == (string)e.Parameter);
 
 			pattern.Text = namedRegex.Regex;
+			format.Text = namedRegex.Format;
 		}
 
 		private void ClearScratch_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -90,12 +92,11 @@ namespace Parsepad
 
 		private void SaveRegex_Click(object sender, RoutedEventArgs e)
 		{
-			//RegexWindow regexWindow = new RegexWindow();
+			RegexWindow regexWindow = new RegexWindow(!string.IsNullOrWhiteSpace(format.Text));
+			regexWindow.Owner = this;
 
-			//regexWindow.Regex = pattern.Text;
-
-			//if (regexWindow.ShowDialog() ?? false)
-			//	RegexManager.Persist(regexWindow.RegexName, regexWindow.Regex);
+			if (regexWindow.ShowDialog() ?? false)
+				RegexManager.AddNamed(regexWindow.RegexName, ViewModel.Pattern, regexWindow.SaveFormat ? ViewModel.Format : null);
 		}
 
 		private void ignoreCase_Click(object sender, RoutedEventArgs e)
@@ -151,7 +152,31 @@ namespace Parsepad
 
 		private void searchText_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			searchText.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 			ViewModel.ClearMatches();
+		}
+
+		private void searchText_SelectionChanged(object sender, RoutedEventArgs e)
+		{
+			int line = searchText.GetLineIndexFromCharacterIndex(searchText.SelectionStart);
+			int startchar = searchText.GetCharacterIndexFromLineIndex(line);
+			int col = searchText.SelectionStart - startchar;
+
+			textInfo.Text = string.Format("Ln {0} Col {1}", line, col); 
+		}
+
+		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			var dialog = new OpenFileDialog();
+			dialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+
+			if (dialog.ShowDialog(this) ?? false)
+			{
+				using (var reader = new StreamReader(File.OpenRead(dialog.FileName)))
+				{
+					searchText.Text = reader.ReadToEnd();
+				}
+			}
 		}
 	}
 }

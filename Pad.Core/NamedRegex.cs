@@ -9,8 +9,9 @@ namespace Pad.Core
 	{
 		public string Name { get; set; }
 		public string Regex { get; set; }
+		public string Format { get; set; }
 
-		public NamedRegex(string name, string regex)
+		public NamedRegex(string name, string regex, string format)
 		{
 			if (string.IsNullOrEmpty(name))
 				throw new ArgumentNullException("Name is required");
@@ -25,6 +26,7 @@ namespace Pad.Core
 
 			this.Name = name;
 			this.Regex = regex;
+			this.Format = format ?? string.Empty;
 		}
 
 		public override string ToString()

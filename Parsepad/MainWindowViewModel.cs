@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using Pad.Core;
 using Pad.UI;
@@ -16,7 +17,7 @@ namespace Parsepad
 	{
 		private readonly RegexOptionsViewModel regexOptions = new RegexOptionsViewModel();
 		private readonly MatchOptionsViewModel matchOptions = new MatchOptionsViewModel();
-		private readonly ObservableCollection<string> patterns = new ObservableCollection<string>();
+		private readonly PatternsViewModel patterns = new PatternsViewModel();
 		private readonly ObservableCollection<PatternMatch> matches = new ObservableCollection<PatternMatch>();
 
 		private string pattern;
@@ -25,7 +26,11 @@ namespace Parsepad
 		private string searchText;
 
 		private Brush patternForeground;
+		private string textInfo;
+		private string regexInfo;
 		private string matchInfo;
+
+		private Cursor cursor;
 
 		public RegexOptionsViewModel RegexOptions
 		{
@@ -37,7 +42,7 @@ namespace Parsepad
 			get { return matchOptions; }
 		}
 
-		public ObservableCollection<string> Patterns
+		public PatternsViewModel Patterns
 		{
 			get { return patterns; }
 		}
@@ -45,6 +50,20 @@ namespace Parsepad
 		public ObservableCollection<PatternMatch> Matches
 		{
 			get { return matches; }
+		}
+
+		public Cursor Cursor
+		{
+			get { return cursor; }
+			set
+			{
+				if (cursor != value)
+				{
+					cursor = value;
+
+					OnPropertyChanged("Cursor");
+				}
+			}
 		}
 
 		public string Pattern
@@ -119,6 +138,34 @@ namespace Parsepad
 			}
 		}
 
+		public string TextInfo
+		{
+			get { return textInfo; }
+			set
+			{
+				if (textInfo != value)
+				{
+					textInfo = value;
+
+					OnPropertyChanged("TextInfo");
+				}
+			}
+		}
+
+		public string RegexInfo
+		{
+			get { return regexInfo; }
+			set
+			{
+				if (regexInfo != value)
+				{
+					regexInfo = value;
+
+					OnPropertyChanged("RegexInfo");
+				}
+			}
+		}
+
 		public string MatchInfo
 		{
 			get { return matchInfo; }
@@ -147,9 +194,6 @@ namespace Parsepad
 		public MainWindowViewModel()
 		{
 			PatternForeground = Brushes.Black;
-
-			foreach (var s in RegexManager.GetRecent())
-				Patterns.Add(s);
 		}
 
 		private void OnPatternChanged()
@@ -166,7 +210,7 @@ namespace Parsepad
 
 					PatternForeground = Brushes.DarkGreen;
 
-					MatchInfo = "Valid regex";
+					RegexInfo = "Valid regex";
 				}
 				else
 				{
@@ -174,12 +218,12 @@ namespace Parsepad
 
 					PatternForeground = Brushes.DarkRed;
 
-					MatchInfo = "Invalid regex";
+					RegexInfo = "Invalid regex";
 				}
 			}
 			else
 			{
-				MatchInfo = "No pattern";
+				RegexInfo = string.Empty;
 			}
 		}
 
@@ -189,18 +233,22 @@ namespace Parsepad
 			Matches.Clear();
 		}
 
+		public bool CanParse()
+		{
+			return IsPatternValid && !string.IsNullOrEmpty(SearchText);
+		}
+
 		public void Parse()
 		{
 			MatchInfo = "Finding matches";
 
 			var parser = new DataParser(RegexManager.GetRegex(Pattern, PatternOptions), Format, SearchText);
 
-			//var defaultCursor = Cursor;
-			//Cursor = System.Windows.Input.Cursors.Wait;
+			var defaultCursor = Cursor;
+			Cursor = System.Windows.Input.Cursors.Wait;
 
 			var unfiltered = parser.GetMatches();
 
-			//Cursor = defaultCursor;
 
 			if (unfiltered != null)
 			{
@@ -228,7 +276,11 @@ namespace Parsepad
 				MatchInfo = string.Format("{0} matches", matches.Count());
 			}
 
-			RegexManager.AddRecent(Pattern);
+			var pattern = Pattern;
+			Patterns.AddRecent(Pattern);
+			Pattern = pattern;
+
+			Cursor = defaultCursor;
 		}
 
 		public void Copy(ListFlattener flattener)

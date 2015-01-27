@@ -4,7 +4,7 @@
         xmlns:core="clr-namespace:Pad.Core;assembly=Pad.Core"
         xmlns:ui="clr-namespace:Setpad.UI;assembly=setpad"
 		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
-        Title="Setpad" Height="429" Width="761" Icon="1422343980_222435.ico">
+        Title="Setpad" Height="429" Width="761" Icon="1422413009_344075.ico">
     
     
     <Window.CommandBindings>

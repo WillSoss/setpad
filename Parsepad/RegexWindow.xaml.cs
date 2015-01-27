@@ -19,26 +19,28 @@ namespace Parsepad
 	public partial class RegexWindow : Window
 	{
 		public string RegexName { get; set; }
-		public string Regex { get; set; }
+		public bool SaveFormat { get; set; }
+		public bool EnableSaveFormat { get; set; }
 
-		public RegexWindow()
+		public RegexWindow(bool enableSaveFormat)
 		{
 			InitializeComponent();
 
+			this.EnableSaveFormat = enableSaveFormat;
 			this.Loaded += new RoutedEventHandler(RegexWindow_Loaded);
 		}
 
 		void RegexWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-			regex.Text = this.Regex;
 			name.Text = this.RegexName;
+			saveFormat.IsEnabled = EnableSaveFormat;
 		}
 
 		private void save_Click(object sender, RoutedEventArgs e)
 		{
 			this.RegexName = this.name.Text;
-			this.Regex = this.regex.Text;
-
+			this.SaveFormat = EnableSaveFormat && (saveFormat.IsChecked ?? false);
+			
 			this.DialogResult = true;
 			this.Close();
 		}

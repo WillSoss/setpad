@@ -9,21 +9,13 @@ namespace Pad.Core
 {
 	public static class RegexManager
 	{
-		private const string regpath = "Software\\Sossamon\\Parsepad\\Regexes";
+		private const string namedpath = "Software\\Sossamon\\Parsepad\\Named Regexes";
 		private const string recentpath = "Software\\Sossamon\\Parsepad\\Recent Regexes";
-		private static List<NamedRegex> persisted;
 		private static Dictionary<string, System.Text.RegularExpressions.Regex> regexes;
-
-		public static IEnumerable<NamedRegex> PersistedRegexes
-		{
-			get { return persisted; }
-		}
 
 		static RegexManager()
 		{
 			regexes = new Dictionary<string, System.Text.RegularExpressions.Regex>();
-			persisted = new List<NamedRegex>();
-			LoadRegexes();
 		}
 
 		public static System.Text.RegularExpressions.Regex GetRegex(string regexText, RegexOptions options)
@@ -63,18 +55,14 @@ namespace Pad.Core
 			}
 		}
 
-		public static void Persist(string name, string regex)
+		public static void AddNamed(string name, string regex, string format)
 		{
-			var namedRegex = persisted.SingleOrDefault(nr => nr.Name == name);
-
-			if (namedRegex != null)
-				namedRegex.Regex = regex;
-			else
-				namedRegex = new NamedRegex(name, regex);
-
-			var key = GetKey();
+			var key = GetNamedKey();
 
 			key.SetValue(name, regex);
+
+			if (!string.IsNullOrWhiteSpace(format))
+				key.SetValue(name + "__Format", format);
 		}
 
 		public static void AddRecent(string regex)
@@ -118,17 +106,19 @@ namespace Pad.Core
 			}
 		}
 
-		private static void LoadRegexes()
+		public static IEnumerable<NamedRegex> GetNamed()
 		{
-			var key = GetKey();
+			var key = GetNamedKey();
+			var patterns = key.GetValueNames().Where(n => !n.EndsWith("__Format"));
+			var formats = key.GetValueNames().Where(n => n.EndsWith("__Format"));
 
-			foreach (var name in key.GetValueNames())
-				persisted.Add(new NamedRegex(name, (string)key.GetValue(name)));
+			foreach (var name in patterns)
+				yield return new NamedRegex(name, (string)key.GetValue(name), patterns.Contains(name + "__Format") ? (string)key.GetValue(name + "__Format") : null);
 		}
 
-		private static RegistryKey GetKey()
+		private static RegistryKey GetNamedKey()
 		{
-			return OpenOrCreateSubKey(Registry.CurrentUser, regpath);
+			return OpenOrCreateSubKey(Registry.CurrentUser, namedpath);
 		}
 
 		private static RegistryKey GetRecentKey()

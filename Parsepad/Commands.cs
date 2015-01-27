@@ -13,6 +13,6 @@ namespace Parsepad
 		public static RoutedCommand CopyAs = new RoutedCommand();
 		public static RoutedCommand Open = new RoutedCommand();
 		public static RoutedCommand Move = new RoutedCommand();
-		public static RoutedCommand ClearScratch = new RoutedCommand();
+		public static RoutedCommand LoadPattern = new RoutedCommand();
 	}
 }

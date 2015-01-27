@@ -5,17 +5,18 @@
         xmlns:ui="clr-namespace:Parsepad"
 		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
 		xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-        Title="Parsepad" Height="429" Width="761" Icon="1422344176_222411.ico">
+        Title="Parsepad" Height="429" Width="761" Icon="Parsepad.ico"
+		Cursor="{Binding Path=ViewModel.Cursor,Mode=TwoWay}">
 
 
 	<Window.CommandBindings>
+		<CommandBinding Command="ui:Commands.Open" Executed="Open_Executed" />
 		<CommandBinding Command="Close" Executed="Close_Executed" />
 		<CommandBinding Command="ui:Commands.Find" CanExecute="Find_CanExecute" Executed="Find_Executed" />
 		<CommandBinding Command="ui:Commands.Copy" CanExecute="HasResults" Executed="Copy_Executed" />
 		<CommandBinding Command="ui:Commands.CopyAs" CanExecute="HasResults" Executed="CopyAs_Executed" />
-		<CommandBinding Command="ui:Commands.Open" Executed="Open_Executed" />
+		<CommandBinding Command="ui:Commands.LoadPattern" Executed="LoadPattern_Executed" />
 		<CommandBinding Command="ui:Commands.Move" CanExecute="HasResults" Executed="Move_Executed" />
-		<CommandBinding Command="ui:Commands.ClearScratch" Executed="ClearScratch_Executed" />
 	</Window.CommandBindings>
 
 	<Window.InputBindings>
@@ -23,7 +24,6 @@
 		<KeyBinding Key="I" Modifiers="Control" Command="ui:Commands.Move"/>
 		<KeyBinding Key="C" Modifiers="Control" Command="ui:Commands.Copy" />
 		<KeyBinding Key="O" Modifiers="Control" Command="ui:Commands.Open" />
-		<KeyBinding Key="N" Modifiers="Control" Command="ui:Commands.ClearScratch" />
 	</Window.InputBindings>
 
 	<Grid>
@@ -41,13 +41,12 @@
 					<Setter Property="ToolTip" Value="{Binding Description}" />
 				</Style>
 				<Style x:Key="OpenSubMenuItems" TargetType="MenuItem">
-					<Setter Property="Command" Value="ui:Commands.Open" />
+					<Setter Property="Command" Value="ui:Commands.LoadPattern" />
 					<Setter Property="CommandParameter" Value="{Binding Name}" />
 				</Style>
 			</Menu.Resources>
 			<MenuItem Header="_File">
-				<MenuItem Header="_New" Command="ui:Commands.ClearScratch" InputGestureText="Ctrl+N" />
-				<MenuItem Header="_Open..." InputGestureText="Ctrl+O" />
+				<MenuItem Header="_Open..." Command="ui:Commands.Open" InputGestureText="Ctrl+O" />
 				<Separator />
 				<MenuItem Header="E_xit" Command="Close" InputGestureText="Alt+F4" />
 			</MenuItem>
@@ -55,11 +54,9 @@
 				<MenuItem Header="Cu_t" Command="Cut" InputGestureText="Ctrl+X" />
 				<MenuItem Header="_Copy" Command="Copy" InputGestureText="Ctrl+C" />
 				<MenuItem Header="_Paste" Command="Paste" InputGestureText="Ctrl+V" />
-				<Separator />
-				<MenuItem Header="_Options..." />
 			</MenuItem>
 			<MenuItem Header="_Regex">
-				<MenuItem Header="_Load"  ItemsSource="{Binding Source={x:Static Member=core:RegexManager.PersistedRegexes}}"
+				<MenuItem Header="_Load"  ItemsSource="{Binding Path=Patterns.Saved}"
                           ItemContainerStyle="{StaticResource OpenSubMenuItems}" />
 				<Separator />
 				<MenuItem Header="_Save As..." Click="SaveRegex_Click" />
@@ -100,9 +97,8 @@
 					 AcceptsReturn="True"
 					 HorizontalScrollBarVisibility="Visible" 
 					 VerticalScrollBarVisibility="Auto" 
-					 IsInactiveSelectionHighlightEnabled="True"
-					 SelectionBrush="Blue"
 					 TextChanged="searchText_TextChanged"
+					 SelectionChanged="searchText_SelectionChanged"
 					 />
 
 			<GridSplitter HorizontalAlignment="Right" 
@@ -117,7 +113,7 @@
 					<RowDefinition />					
 				</Grid.RowDefinitions>
 
-				<ComboBox IsEditable="True" ItemsSource="{Binding Path=Patterns}" Grid.Row="0" x:Name="pattern" Text="{Binding Path=Pattern, Mode=OneWayToSource}"
+				<ComboBox IsEditable="True" ItemsSource="{Binding Path=Patterns.Recent}" Grid.Row="0" x:Name="pattern" Text="{Binding Path=Pattern, Mode=TwoWay}"
 					Foreground="{Binding Path=PatternForeground}"
 					ToolTip="Regular Expression (e.g. (?&lt;firstName>\w+)\W(?&lt;lastName>\w+))"
 					FontWeight="Bold" Margin="0,0,0,5" />
@@ -138,17 +134,21 @@
 				<ItemsPanelTemplate>
 					<Grid>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition Width="auto"/>
+							<ColumnDefinition Width="4*" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 					</Grid>
 				</ItemsPanelTemplate>
 			</StatusBar.ItemsPanel>
 			<StatusBarItem>
-				<TextBlock>Ready</TextBlock>
+				<TextBlock x:Name="textInfo" />
 			</StatusBarItem>
 			<StatusBarItem Grid.Column="1">
-				<TextBlock Text="{Binding Path=MatchInfo}"></TextBlock>
+				<TextBlock Text="{Binding Path=RegexInfo}" />
+			</StatusBarItem>
+			<StatusBarItem Grid.Column="2">
+				<TextBlock HorizontalAlignment="Right" Text="{Binding Path=MatchInfo}" />
 			</StatusBarItem>
 		</StatusBar>
 

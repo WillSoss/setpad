@@ -1,13 +1,12 @@
 ﻿<Window x:Class="Parsepad.RegexWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Regex" Height="179" Width="420">
+        Title="Save Regex" Height="141" Width="360" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="Parsepad.ico">
     <StackPanel>
         <Label Content="Name:" Height="28" />
         <TextBox Height="23" x:Name="name" />
-        <Label Content="Regex:" Height="28" />
-        <TextBox Height="23" x:Name="regex" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+		<CheckBox x:Name="saveFormat">Save Format with Regex</CheckBox>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="save" Width="46" Height="26" Margin="6" Click="save_Click">Save</Button>
             <Button x:Name="cancel" Width="46" Height="26" Margin="0,6,6,6" Click="cancel_Click">Cancel</Button>
         </StackPanel>

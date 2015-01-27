@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1422344176_222411.ico</ApplicationIcon>
+    <ApplicationIcon>Parsepad.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Highlighting.cs" />
     <Compile Include="MatchOptionsViewModel.cs" />
+    <Compile Include="PatternsViewModel.cs" />
     <Compile Include="RegexOptionsViewModel.cs" />
     <Compile Include="RegexWindow.xaml.cs">
       <DependentUpon>RegexWindow.xaml</DependentUpon>
@@ -120,22 +121,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Close_16xLG.png" />
-    <Resource Include="Images\gear_16xLG.png" />
-    <Resource Include="Images\NewFile_6276.png" />
-    <Resource Include="Images\Open_6529.png" />
-    <Resource Include="Images\Save_6530.png" />
-    <Resource Include="Images\startdebugging.png" />
-    <Resource Include="Images\startwithoutdebugging_6556.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Copy_6524.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Paste_6520.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="1422344176_222411.ico" />
+    <Resource Include="Parsepad.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
