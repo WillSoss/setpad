@@ -39,7 +39,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Properties\Mining.ico</ApplicationIcon>
+    <ApplicationIcon>1422343980_222435.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -113,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\Mining.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1422343980_222435.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

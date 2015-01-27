@@ -16,7 +16,7 @@ namespace Pad.Core
 	public class CalculatedSet : NamedSet
 	{
 		public CalculatedSet(NamedSet a, NamedSet b, SetOperation op)
-			: base(GetSetName(a,b,op))
+			: base(GetSetName(a,b,op), true)
 		{
 			if (a == null)
 				throw new ArgumentNullException("Set A is required");
@@ -33,13 +33,13 @@ namespace Pad.Core
 		{
 			switch (op)
 			{
-				case SetOperation.Union: return string.Format("{0} ∪ {1}", a.Name, b.Name);
+				case SetOperation.Union: return string.Format("{0} ∪ {1}", a.OrderedName, b.OrderedName);
 
-				case SetOperation.Intersection:	return string.Format("{0} ∩ {1}", a.Name, b.Name);
+				case SetOperation.Intersection: return string.Format("{0} ∩ {1}", a.OrderedName, b.OrderedName);
 
-				case SetOperation.Difference: return string.Format("{0} \\ {1}", a.Name, b.Name);
+				case SetOperation.Difference: return string.Format("{0} \\ {1}", a.OrderedName, b.OrderedName);
 
-				case SetOperation.SymmetricDifference: return string.Format("{0} ∆ {1}", a.Name, b.Name);
+				case SetOperation.SymmetricDifference: return string.Format("{0} ∆ {1}", a.OrderedName, b.OrderedName);
 
 				default: throw new ArgumentOutOfRangeException("Invalid operation");
 			}

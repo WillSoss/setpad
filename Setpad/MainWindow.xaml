@@ -4,28 +4,42 @@
         xmlns:core="clr-namespace:Pad.Core;assembly=Pad.Core"
         xmlns:ui="clr-namespace:Setpad.UI;assembly=setpad"
 		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
-        Title="Setpad" Height="429" Width="761" Icon="Properties/Mining.ico">
+        Title="Setpad" Height="429" Width="761" Icon="1422343980_222435.ico">
     
     
     <Window.CommandBindings>
         <CommandBinding Command="Close" Executed="Close_Executed" />
         <CommandBinding Command="ui:Commands.Open" Executed="Open_Executed" />
-		<CommandBinding Command="ui:Commands.ClearScratch" Executed="ClearScratch_Executed" />
-		<CommandBinding Command="ui:Commands.CreateSetFromMatches" Executed="CreateSetFromMatches_Executed" />
-		<CommandBinding Command="ui:Commands.UnionSets" Executed="UnionSets_Executed" />
-		<CommandBinding Command="ui:Commands.IntersectSets" Executed="IntersectSets_Executed" />
-		<CommandBinding Command="ui:Commands.DifferenceSets" Executed="DifferenceSets_Executed" />
-		<CommandBinding Command="ui:Commands.SymmetricDifferenceSets" Executed="SymmetricDifferenceSets_Executed" />
-		<CommandBinding Command="ui:Commands.RemoveSets" Executed="RemoveSets_Executed" />
+		<CommandBinding Command="ui:Commands.Copy" CanExecute="UnaryOp_CanExecute" Executed="Copy_Executed" />
+		<CommandBinding Command="ui:Commands.CopyAs" CanExecute="UnaryOp_CanExecute" Executed="CopyAs_Executed" />
+		<CommandBinding Command="ui:Commands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed" />
+		<CommandBinding Command="ui:Commands.UnionSets" CanExecute="BinaryOp_CanExecute" Executed="UnionSets_Executed" />
+		<CommandBinding Command="ui:Commands.IntersectSets" CanExecute="BinaryOp_CanExecute" Executed="IntersectSets_Executed" />
+		<CommandBinding Command="ui:Commands.DifferenceSets" CanExecute="BinaryOp_CanExecute" Executed="DifferenceSets_Executed" />
+		<CommandBinding Command="ui:Commands.SymmetricDifferenceSets" CanExecute="BinaryOp_CanExecute" Executed="SymmetricDifferenceSets_Executed" />
+		<CommandBinding Command="ui:Commands.RemoveSets" CanExecute="UnaryOp_CanExecute" Executed="RemoveSets_Executed" />
     </Window.CommandBindings>
 
     <Window.InputBindings>
-        <KeyBinding Key="F5" Command="ui:Commands.Find"/>
-		<KeyBinding Key="F6" Command="ui:Commands.CreateSetFromMatches"/>
-        <KeyBinding Key="I" Modifiers="Ctrl" Command="ui:Commands.Move"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="ui:Commands.Open"/>
+		<KeyBinding Key="C" Modifiers="Control" Command="ui:Commands.Copy" />
+		<KeyBinding Key="V" Modifiers="Control" Command="ui:Commands.Paste" />
+		<KeyBinding Key="U" Modifiers="Control" Command="ui:Commands.UnionSets" />
+		<KeyBinding Key="I" Modifiers="Control" Command="ui:Commands.IntersectSets" />
+		<KeyBinding Key="D" Modifiers="Control" Command="ui:Commands.DifferenceSets" />
+		<KeyBinding Key="S" Modifiers="Control" Command="ui:Commands.SymmetricDifferenceSets" />
+		<KeyBinding Key="Delete" Command="ui:Commands.RemoveSets" />
     </Window.InputBindings>
 
-    <Grid>
+	<Window.Resources>
+		<Style x:Key="CopyAsItems" TargetType="MenuItem">
+			<Setter Property="Command" Value="ui:Commands.CopyAs" />
+			<Setter Property="CommandParameter" Value="{Binding Name}" />
+			<Setter Property="ToolTip" Value="{Binding Description}" />
+		</Style>
+	</Window.Resources>
+
+	<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
             <RowDefinition />
@@ -33,49 +47,41 @@
         </Grid.RowDefinitions>
 
 		<Menu>
-			<Menu.Resources>
-				<Style x:Key="FindSubMenuItems" TargetType="MenuItem">
-					<Setter Property="Command" Value="ui:Commands.FindAs" />
-					<Setter Property="CommandParameter" Value="{Binding Name}" />
-					<Setter Property="ToolTip" Value="{Binding Description}" />
-				</Style>
-				<Style x:Key="OpenSubMenuItems" TargetType="MenuItem">
-					<Setter Property="Command" Value="ui:Commands.Open" />
-					<Setter Property="CommandParameter" Value="{Binding Name}" />
-				</Style>
-			</Menu.Resources>
 			<MenuItem Header="_File">
-				<MenuItem Header="_Open" />
+				<MenuItem Header="_Open..." Command="ui:Commands.Open" InputGestureText="Ctrl+O" />
 				<Separator />
 				<MenuItem Header="E_xit" Command="Close" InputGestureText="Alt+F4" />
 			</MenuItem>
 
-			<MenuItem Header="_Sets" >
-				<MenuItem Header="_Create From Matches" Command="ui:Commands.CreateSetFromMatches" InputGestureText="F6" />
+			<MenuItem Header="_Edit" >
+				<MenuItem Header="_Copy" Command="ui:Commands.Copy" InputGestureText="Ctrl+C" />
+				<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
+                          ItemContainerStyle="{StaticResource CopyAsItems}" />
+				<MenuItem Header="_Paste" Command="ui:Commands.Paste" InputGestureText="Ctrl+V" />
+				<Separator />
+				<MenuItem Header="Union" Command="ui:Commands.UnionSets" InputGestureText="Ctrl+U" />
+				<MenuItem Header="Intersect" Command="ui:Commands.IntersectSets" InputGestureText="Ctrl+I" />
+				<MenuItem Header="Difference" Command="ui:Commands.DifferenceSets" InputGestureText="Ctrl+D" />
+				<MenuItem Header="Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" InputGestureText="Ctrl+S" />
+				<Separator />
+				<MenuItem Header="Remove" Command="ui:Commands.RemoveSets" InputGestureText="Del" />
 			</MenuItem>
 		</Menu>
 
 		<Grid Grid.Row="1">
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
+				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="auto" />
-				<ColumnDefinition Width="200" />
+				<ColumnDefinition Width="2*" />
 			</Grid.ColumnDefinitions>
 
-			<RichTextBox Grid.Column="0" x:Name="results" IsReadOnly="true" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" />
-
-			<GridSplitter HorizontalAlignment="Right" 
-                VerticalAlignment="Stretch" 
-                Grid.Column="1" ResizeBehavior="BasedOnAlignment"
-                Width="5" />
-
-			<ListView Grid.Column="2" x:Name="setlist" ItemsSource="{Binding Path=Sets}"
+			<ListView Grid.Column="0" x:Name="setlist" ItemsSource="{Binding Path=Sets}"
 					  ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedSets}">
 				<ListView.View>
 					<GridView>
-						<GridViewColumn DisplayMemberBinding="{Binding Name}"/>
-						<GridViewColumn DisplayMemberBinding="{Binding Count}"/>
+						<GridViewColumn Header="Set" DisplayMemberBinding="{Binding Name}" Width="160"/>
+						<GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" Width="80" />
 					</GridView>
 				</ListView.View>
 				<ListView.Resources>
@@ -83,18 +89,30 @@
 						<Setter Property="ContextMenu">
 							<Setter.Value>
 								<ContextMenu DataContext="{Binding Path=PlacementTarget.ListView.DataContext, RelativeSource={RelativeSource Self}}">
-									<MenuItem Header="Union" Command="ui:Commands.UnionSets" />
-									<MenuItem Header="Intersect" Command="ui:Commands.IntersectSets" />
-									<MenuItem Header="Difference" Command="ui:Commands.DifferenceSets" />
-									<MenuItem Header="Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
+									<MenuItem Header="_Copy" Command="ui:Commands.Copy" InputGestureText="Ctrl+C" />
+									<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
+											ItemContainerStyle="{StaticResource CopyAsItems}" />
+									<MenuItem Header="_Paste" Command="ui:Commands.Paste" />
 									<Separator />
-									<MenuItem Header="Remove" Command="ui:Commands.RemoveSets" />
+									<MenuItem Header="_Union" Command="ui:Commands.UnionSets" />
+									<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" />
+									<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" />
+									<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
+									<Separator />
+									<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" />
 								</ContextMenu>
 							</Setter.Value>
 						</Setter>
 					</Style>
 				</ListView.Resources>
 			</ListView>
+
+			<GridSplitter HorizontalAlignment="Right" 
+                VerticalAlignment="Stretch" 
+                Grid.Column="1" ResizeBehavior="BasedOnAlignment"
+                Width="5" />
+			
+			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}" />
 
 		</Grid>
          
@@ -104,21 +122,17 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem>
-                <TextBlock>Ready</TextBlock>
-            </StatusBarItem>
+				<TextBlock Text="{Binding Path=SelectedSetOrder}" />
+			</StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}},Path=MatchInfo}"></TextBlock>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2">
-                <ProgressBar Width="120" Height="18" />
-            </StatusBarItem>
+				<TextBlock Text="{Binding Path=SetDetail}" />
+			</StatusBarItem>
         </StatusBar>
         
     </Grid>

@@ -10,7 +10,7 @@ namespace Pad.Core
 		private readonly HashSet<string> data;
 
 		public RawSet(string name, HashSet<string> data)
-			: base(name)
+			: base(name, false)
 		{
 			if (data == null)
 				throw new ArgumentNullException("A data set is required");

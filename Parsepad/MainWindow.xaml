@@ -5,7 +5,7 @@
         xmlns:ui="clr-namespace:Parsepad"
 		xmlns:ff="clr-namespace:FunctionalFun.UI.Behaviours;assembly=Pad.UI"
 		xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-        Title="Parsepad" Height="429" Width="761">
+        Title="Parsepad" Height="429" Width="761" Icon="1422344176_222411.ico">
 
 
 	<Window.CommandBindings>
@@ -35,7 +35,7 @@
 
 		<Menu>
 			<Menu.Resources>
-				<Style x:Key="FindSubMenuItems" TargetType="MenuItem">
+				<Style x:Key="CopyAsItems" TargetType="MenuItem">
 					<Setter Property="Command" Value="ui:Commands.CopyAs" />
 					<Setter Property="CommandParameter" Value="{Binding Name}" />
 					<Setter Property="ToolTip" Value="{Binding Description}" />
@@ -67,7 +67,7 @@
 				<Separator/>
 				<MenuItem Header="_Copy" InputGestureText="Ctrl+C" Command="ui:Commands.Copy" />
 				<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
-                          ItemContainerStyle="{StaticResource FindSubMenuItems}" />
+                          ItemContainerStyle="{StaticResource CopyAsItems}" />
 				<MenuItem Header="Move to _Input" InputGestureText="Ctrl+I" Command="ui:Commands.Move" />
 				<Separator />
 				<MenuItem Header="Remove _Duplicates" ToolTip="If enabled, eliminated duplicates from copied results" 
