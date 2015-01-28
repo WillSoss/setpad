@@ -277,8 +277,12 @@ namespace Parsepad
 			}
 
 			var pattern = Pattern;
-			Patterns.AddRecent(Pattern);
+			var format = Format;
+
+			Patterns.AddRecent(Pattern, Format);
+
 			Pattern = pattern;
+			Format = format;
 
 			Cursor = defaultCursor;
 		}

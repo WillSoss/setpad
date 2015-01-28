@@ -65,32 +65,40 @@ namespace Pad.Core
 				key.SetValue(name + "__Format", format);
 		}
 
-		public static void AddRecent(string regex)
+		public static void AddRecent(string regex, string format)
+		{
+			AddRecentType("Regex", regex);
+
+			if (!string.IsNullOrWhiteSpace(format))
+				AddRecentType("Format", format);
+		}
+
+		private static void AddRecentType(string type, string value)
 		{
 			var key = GetRecentKey();
 
-			bool moving = !GetRecent().Contains(regex);
+			bool moving = !GetRecentFormats().Contains(value);
 
 			for (int i = 10; i > 0; i--)
 			{
 				if (!moving)
 				{
-					var v2 = key.GetValue(string.Format("Regex{0}", i));
+					var v2 = key.GetValue(string.Format("{0}{1}", type, i));
 
-					if (v2 != null && ((string)v2) == regex)
+					if (v2 != null && ((string)v2) == value)
 						moving = true;
 				}
 				
 				if (moving)
 				{
-					var val = key.GetValue(string.Format("Regex{0}", i - 1));
+					var val = key.GetValue(string.Format("{0}{1}", type, i - 1));
 
 					if (val != null)
-						key.SetValue(string.Format("Regex{0}", i), val);
+						key.SetValue(string.Format("{0}{1}", type, i), val);
 				}
 			}
 				
-			key.SetValue("Regex1", regex);
+			key.SetValue(string.Format("{0}1", type), value);
 		}
 
 		public static IEnumerable<string> GetRecent()
@@ -100,6 +108,19 @@ namespace Pad.Core
 			for (int i = 1; i < 11; i++)
 			{
 				var val = key.GetValue(string.Format("Regex{0}", i));
+
+				if (val != null)
+					yield return (string)val;
+			}
+		}
+
+		public static IEnumerable<string> GetRecentFormats()
+		{
+			var key = GetRecentKey();
+
+			for (int i = 1; i < 11; i++)
+			{
+				var val = key.GetValue(string.Format("Format{0}", i));
 
 				if (val != null)
 					yield return (string)val;

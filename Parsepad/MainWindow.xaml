@@ -121,9 +121,9 @@
 					ToolTip="Regular Expression (e.g. (?&lt;firstName>\w+)\W(?&lt;lastName>\w+))"
 					FontWeight="Bold" Margin="0,0,0,5" />
 
-				<ComboBox IsEditable="True" Grid.Row="1" x:Name="format" 
+				<ComboBox IsEditable="True" ItemsSource="{Binding Path=Patterns.RecentFormats}" Grid.Row="1" x:Name="format" 
 						  FontWeight="Bold"  
-						  Text="{Binding Path=Format, Mode=OneWayToSource}"
+						  Text="{Binding Path=Format, Mode=TwoWay}"
 						  ToolTip="Format (e.g. &lt;lastName>, &lt;firstName>)" Margin="0,0,0,5"/>
 
 
