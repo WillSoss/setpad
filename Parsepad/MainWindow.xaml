@@ -27,6 +27,19 @@
 		<KeyBinding Key="O" Modifiers="Control" Command="ui:Commands.Open" />
 	</Window.InputBindings>
 
+
+	<Window.Resources>
+		<Style x:Key="CopyAsItems" TargetType="MenuItem">
+			<Setter Property="Command" Value="ui:Commands.CopyAs" />
+			<Setter Property="CommandParameter" Value="{Binding Name}" />
+			<Setter Property="ToolTip" Value="{Binding Description}" />
+		</Style>
+		<Style x:Key="LoadRegexItems" TargetType="MenuItem">
+			<Setter Property="Command" Value="ui:Commands.LoadPattern" />
+			<Setter Property="CommandParameter" Value="{Binding Name}" />
+		</Style>
+	</Window.Resources>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="24" />
@@ -35,17 +48,6 @@
 		</Grid.RowDefinitions>
 
 		<Menu>
-			<Menu.Resources>
-				<Style x:Key="CopyAsItems" TargetType="MenuItem">
-					<Setter Property="Command" Value="ui:Commands.CopyAs" />
-					<Setter Property="CommandParameter" Value="{Binding Name}" />
-					<Setter Property="ToolTip" Value="{Binding Description}" />
-				</Style>
-				<Style x:Key="OpenSubMenuItems" TargetType="MenuItem">
-					<Setter Property="Command" Value="ui:Commands.LoadPattern" />
-					<Setter Property="CommandParameter" Value="{Binding Name}" />
-				</Style>
-			</Menu.Resources>
 			<MenuItem Header="_File">
 				<MenuItem Header="_Open..." Command="ui:Commands.Open" InputGestureText="Ctrl+O" />
 				<Separator />
@@ -58,7 +60,7 @@
 			</MenuItem>
 			<MenuItem Header="_Regex">
 				<MenuItem Header="_Load"  ItemsSource="{Binding Path=Patterns.Saved}"
-                          ItemContainerStyle="{StaticResource OpenSubMenuItems}" />
+                          ItemContainerStyle="{StaticResource LoadRegexItems}" />
 				<Separator />
 				<MenuItem Header="_Save As..." Command="ui:Commands.SavePattern" />
 				<Separator />
@@ -123,9 +125,22 @@
 						  FontWeight="Bold"  
 						  Text="{Binding Path=Format, Mode=OneWayToSource}"
 						  ToolTip="Format (e.g. &lt;lastName>, &lt;firstName>)" Margin="0,0,0,5"/>
-				
-			
-				<ListBox Grid.Row="2" x:Name="results" ItemsSource="{Binding Path=Matches}" SelectionChanged="MatchSelected" />
+
+
+				<ListBox Grid.Row="2" x:Name="results" ItemsSource="{Binding Path=Matches}" SelectionChanged="MatchSelected">
+					<ListBox.ContextMenu>
+						<ContextMenu>
+							<MenuItem Header="_Copy" Command="ui:Commands.Copy" />
+							<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}" ItemContainerStyle="{StaticResource CopyAsItems}" />
+							<MenuItem Header="Move to _Input" Command="ui:Commands.Move" />
+							<Separator />
+							<MenuItem Header="Remove _Duplicates" ToolTip="If enabled, eliminated duplicates from copied results" IsChecked="{Binding Path=MatchOptions.RemoveDuplicates}" Click="removeDuplicates_Click"/>
+							<MenuItem Header="Remove _Empty Strings" IsChecked="{Binding Path=MatchOptions.RemoveEmptyStrings}" Click="removeEmptyStrings_Click" />
+							<MenuItem Header="Remove _Whitespace Strings" IsChecked="{Binding Path=MatchOptions.RemoveWhitespaceStrings}" Click="removeWhitespaceStrings_Click" />
+							<MenuItem Header="_Sort Results" ToolTip="If enabled, sorts items alphabetically, otherwise maintains the order in which matches occur in the data" IsChecked="{Binding Path=MatchOptions.Sort}" Click="sort_Click"/>
+						</ContextMenu>
+					</ListBox.ContextMenu>
+				</ListBox>
 
 			</Grid>
 		</Grid>
