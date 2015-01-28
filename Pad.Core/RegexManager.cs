@@ -67,17 +67,15 @@ namespace Pad.Core
 
 		public static void AddRecent(string regex, string format)
 		{
-			AddRecentType("Regex", regex);
+			AddRecentType("Regex", regex, !GetRecent().Contains(format));
 
 			if (!string.IsNullOrWhiteSpace(format))
-				AddRecentType("Format", format);
+				AddRecentType("Format", format, !GetRecentFormats().Contains(format));
 		}
 
-		private static void AddRecentType(string type, string value)
+		private static void AddRecentType(string type, string value, bool moving)
 		{
 			var key = GetRecentKey();
-
-			bool moving = !GetRecentFormats().Contains(value);
 
 			for (int i = 10; i > 0; i--)
 			{
