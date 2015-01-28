@@ -51,5 +51,10 @@ namespace Parsepad
 			this.Close();
 		}
 
+		private void name_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			save.IsEnabled = !string.IsNullOrWhiteSpace(name.Text);
+		}
+
 	}
 }

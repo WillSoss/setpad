@@ -89,16 +89,7 @@ namespace Parsepad
 		{
 			ViewModel.MoveResultsToInput();
 		}
-
-		private void SaveRegex_Click(object sender, RoutedEventArgs e)
-		{
-			RegexWindow regexWindow = new RegexWindow(!string.IsNullOrWhiteSpace(format.Text));
-			regexWindow.Owner = this;
-
-			if (regexWindow.ShowDialog() ?? false)
-				RegexManager.AddNamed(regexWindow.RegexName, ViewModel.Pattern, regexWindow.SaveFormat ? ViewModel.Format : null);
-		}
-
+		
 		private void ignoreCase_Click(object sender, RoutedEventArgs e)
 		{
 			ViewModel.RegexOptions.IgnoreCase = !ViewModel.RegexOptions.IgnoreCase;
@@ -162,7 +153,7 @@ namespace Parsepad
 			int startchar = searchText.GetCharacterIndexFromLineIndex(line);
 			int col = searchText.SelectionStart - startchar;
 
-			textInfo.Text = string.Format("Ln {0} Col {1}", line, col); 
+			textInfo.Text = string.Format("Ln {0} Col {1}", ++line, ++col); 
 		}
 
 		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -177,6 +168,20 @@ namespace Parsepad
 					searchText.Text = reader.ReadToEnd();
 				}
 			}
+		}
+		
+		private void SavePattern_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = ViewModel.IsPatternValid;
+		}
+
+		private void SavePattern_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			RegexWindow regexWindow = new RegexWindow(!string.IsNullOrWhiteSpace(format.Text));
+			regexWindow.Owner = this;
+
+			if (regexWindow.ShowDialog() ?? false)
+				RegexManager.AddNamed(regexWindow.RegexName, ViewModel.Pattern, regexWindow.SaveFormat ? ViewModel.Format : null);
 		}
 	}
 }
