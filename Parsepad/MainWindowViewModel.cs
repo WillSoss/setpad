@@ -261,7 +261,7 @@ namespace Parsepad
 					query = query.Where(s => !string.IsNullOrWhiteSpace(s.FormattedText));
 
 				if (MatchOptions.RemoveDuplicates)
-					query = query.Distinct();
+					query = query.Distinct(new PatternMatchEqualityComparer());
 
 				if (matchOptions.Sort)
 					query = query.OrderBy(s => s.FormattedText);

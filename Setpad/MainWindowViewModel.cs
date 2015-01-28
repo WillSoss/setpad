@@ -170,7 +170,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var set = new CalculatedSet(SelectedSets.First(), SelectedSets.Skip(1).First(), SetOperation.Union);
+					var set = new CalculatedSet(SelectedSets, SetOperation.Union);
 					sets.Add(set);
 				});
 		}
@@ -179,7 +179,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets.First(), SelectedSets.Skip(1).First(), SetOperation.Intersection);
+				var set = new CalculatedSet(SelectedSets, SetOperation.Intersection);
 				sets.Add(set);
 			});
 		}
@@ -188,7 +188,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets.First(), SelectedSets.Skip(1).First(), SetOperation.Difference);
+				var set = new CalculatedSet(SelectedSets, SetOperation.Difference);
 				sets.Add(set);
 			});
 		}
@@ -197,7 +197,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets.First(), SelectedSets.Skip(1).First(), SetOperation.SymmetricDifference);
+				var set = new CalculatedSet(SelectedSets, SetOperation.SymmetricDifference);
 				sets.Add(set);
 			});
 		}

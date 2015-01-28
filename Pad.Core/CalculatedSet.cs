@@ -15,40 +15,49 @@ namespace Pad.Core
 
 	public class CalculatedSet : NamedSet
 	{
-		public CalculatedSet(NamedSet a, NamedSet b, SetOperation op)
-			: base(GetSetName(a,b,op), true)
+		public CalculatedSet(IEnumerable<NamedSet> sets, SetOperation op)
+			: base(GetSetName(sets, op), true)
 		{
-			if (a == null)
-				throw new ArgumentNullException("Set A is required");
-			
-			if (b == null)
-				throw new ArgumentNullException("Set B is required");
+			if (sets == null)
+				throw new ArgumentNullException("Sets is required");
 
-			this.A = a;
-			this.B = b;
+			if (sets.Count() < 2)
+				throw new ArgumentOutOfRangeException("A calculated set must be created from two or more sets");
+
+			this.Sets = sets.ToArray();
 			this.Operation = op;
 		}
 
-		private static string GetSetName(NamedSet a, NamedSet b, SetOperation op)
+		private static string GetSetName(IEnumerable<NamedSet> sets, SetOperation op)
+		{
+			StringBuilder name = new StringBuilder();
+
+			foreach(var set in sets)
+			{
+				name.AppendFormat("{0} {1} ", set.OrderedName, GetOp(op));
+			}
+
+			return name.Remove(name.Length - 3, 3).ToString();
+		}
+
+		private static string GetOp(SetOperation op)
 		{
 			switch (op)
 			{
-				case SetOperation.Union: return string.Format("{0} ∪ {1}", a.OrderedName, b.OrderedName);
+				case SetOperation.Union: return "∪";
 
-				case SetOperation.Intersection: return string.Format("{0} ∩ {1}", a.OrderedName, b.OrderedName);
+				case SetOperation.Intersection: return "∩";
 
-				case SetOperation.Difference: return string.Format("{0} \\ {1}", a.OrderedName, b.OrderedName);
+				case SetOperation.Difference: return "\\";
 
-				case SetOperation.SymmetricDifference: return string.Format("{0} ∆ {1}", a.OrderedName, b.OrderedName);
+				case SetOperation.SymmetricDifference: return "∆";
 
 				default: throw new ArgumentOutOfRangeException("Invalid operation");
 			}
 		}
 
 
-		public NamedSet A { get; private set; }
-
-		public NamedSet B { get; private set; }
+		public IEnumerable<NamedSet> Sets { get; private set; }
 
 		public SetOperation Operation { get; private set; }
 
@@ -59,19 +68,46 @@ namespace Pad.Core
 
 		public override IQueryable<string> GetQueryable()
 		{
-			switch (Operation)
+			var query = GetQueryable(Operation);
+
+			if (Operation == SetOperation.SymmetricDifference)
+			{
+				var intersection = GetQueryable(SetOperation.Intersection);
+
+				query = query.Except(intersection);
+			}
+
+			return query;
+		}
+
+		private IQueryable<string> GetQueryable(SetOperation op)
+		{
+			IQueryable<string> query = null;
+
+			foreach (var set in Sets)
+			{
+				if (query == null)
+					query = set.GetQueryable();
+				else
+					query = DoOp(query, set.GetQueryable(), op);
+			}
+
+			return query;
+		}
+
+		private static IQueryable<string> DoOp(IQueryable<string> a, IQueryable<string> b, SetOperation op)
+		{
+			switch (op)
 			{
 				case SetOperation.Union:
-					return A.GetQueryable().Union(B.GetQueryable());
+				case SetOperation.SymmetricDifference:
+					return a.Union(b);
 
 				case SetOperation.Intersection:
-					return A.GetQueryable().Intersect(B.GetQueryable());
+					return a.Intersect(b);
 
 				case SetOperation.Difference:
-					return A.GetQueryable().Except(B.GetQueryable());
-
-				case SetOperation.SymmetricDifference:
-					return A.GetQueryable().Union(B.GetQueryable()).Except(A.GetQueryable().Intersect(B.GetQueryable()));
+					return a.Except(b);
 
 				default:
 					throw new ArgumentOutOfRangeException("Invalid operation");

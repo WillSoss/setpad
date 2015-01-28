@@ -3746,7 +3746,7 @@
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-660381259</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>http://www.willsossamon.com</td><td>0</td><td/><td>-526152023</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Sossamon</td><td>0</td><td/><td>-526139639</td></row>
-		<row><td>ID_STRING4</td><td>1033</td><td>Parsepad</td><td>0</td><td/><td>-526184663</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Regexpad</td><td>0</td><td/><td>-526175506</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Setpad</td><td>0</td><td/><td>-526176471</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-660383307</td></row>
 	</table>
@@ -4362,7 +4362,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{D979D90E-EA95-4A9D-8A5F-3618F26826AC}</td><td/></row>
-		<row><td>ProductName</td><td>Parsepad/Setpad</td><td/></row>
+		<row><td>ProductName</td><td>Regexpad/Setpad</td><td/></row>
 		<row><td>ProductVersion</td><td>1.0.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
