@@ -84,35 +84,37 @@
 						<GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" Width="80" />
 					</GridView>
 				</ListView.View>
-				<ListView.Resources>
-					<Style TargetType="ListViewItem">
-						<Setter Property="ContextMenu">
-							<Setter.Value>
-								<ContextMenu DataContext="{Binding Path=PlacementTarget.ListView.DataContext, RelativeSource={RelativeSource Self}}">
-									<MenuItem Header="_Copy" Command="ui:Commands.Copy" InputGestureText="Ctrl+C" />
-									<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
+				<ListView.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="_Copy" Command="ui:Commands.Copy"/>
+						<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
 											ItemContainerStyle="{StaticResource CopyAsItems}" />
-									<MenuItem Header="_Paste" Command="ui:Commands.Paste" />
-									<Separator />
-									<MenuItem Header="_Union" Command="ui:Commands.UnionSets" />
-									<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" />
-									<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" />
-									<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
-									<Separator />
-									<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" />
-								</ContextMenu>
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</ListView.Resources>
+						<MenuItem Header="_Paste" Command="ui:Commands.Paste" />
+						<Separator />
+						<MenuItem Header="_Union" Command="ui:Commands.UnionSets" />
+						<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" />
+						<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" />
+						<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
+						<Separator />
+						<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" />
+					</ContextMenu>
+				</ListView.ContextMenu>
 			</ListView>
 
 			<GridSplitter HorizontalAlignment="Right" 
                 VerticalAlignment="Stretch" 
                 Grid.Column="1" ResizeBehavior="BasedOnAlignment"
                 Width="5" />
-			
-			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}" />
+
+			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}">
+				<ListBox.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="_Copy" Command="ui:Commands.Copy" />
+						<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
+                          ItemContainerStyle="{StaticResource CopyAsItems}" />
+					</ContextMenu>
+				</ListBox.ContextMenu>
+			</ListBox>
 
 		</Grid>
          
