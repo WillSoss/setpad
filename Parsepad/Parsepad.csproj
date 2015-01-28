@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Parsepad.ico</ApplicationIcon>
+    <ApplicationIcon>Parsepad4.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -122,6 +122,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Parsepad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Parsepad2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Parsepad3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Parsepad4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Parsepad5.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

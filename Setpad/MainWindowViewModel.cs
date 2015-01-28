@@ -112,12 +112,12 @@ namespace Setpad.UI
 
 		public bool CanPaste
 		{
-			get { return Clipboard.ContainsText(); }
+			get { return StaClipboard.ContainsText(); }
 		}
 
 		public void Paste()
 		{
-			var text = Clipboard.GetText();
+			var text = StaClipboard.GetText();
 
 			AddRawSet(text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries));
 		}
@@ -163,7 +163,7 @@ namespace Setpad.UI
 		
 		public void Copy(ListFlattener flattener)
 		{
-			Clipboard.SetText(flattener.GetString(selectedSet.GetQueryable()));
+			StaClipboard.SetText(flattener.GetString(selectedSet.GetQueryable()));
 		}
 
 		public void UnionSelectedSets()

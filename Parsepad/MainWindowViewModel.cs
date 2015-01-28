@@ -285,7 +285,7 @@ namespace Parsepad
 
 		public void Copy(ListFlattener flattener)
 		{
-			Clipboard.SetText(flattener.GetString(matches.Select(m => m.FormattedText)));
+			StaClipboard.SetText(flattener.GetString(matches.Select(m => m.FormattedText)));
 		}
 
 		public void MoveResultsToInput()
