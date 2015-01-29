@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pad.Core", "Pad.Core\Pad.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setpad", "Setpad\Setpad.csproj", "{20DE5A19-3E17-41D8-A2D9-910EE5BD103A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parsepad", "Parsepad\Parsepad.csproj", "{6771A03E-EFA3-4C05-ADCB-D10CE65980CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regexpad", "Regexpad\Regexpad.csproj", "{6771A03E-EFA3-4C05-ADCB-D10CE65980CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pad.UI", "Pad.UI\Pad.UI.csproj", "{CFBFDDB1-CC3D-49AE-A646-98BA79E15DA8}"
 EndProject

@@ -7,8 +7,8 @@
     <ProjectGuid>{6771A03E-EFA3-4C05-ADCB-D10CE65980CE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Parsepad</RootNamespace>
-    <AssemblyName>parsepad</AssemblyName>
+    <RootNamespace>Regexpad</RootNamespace>
+    <AssemblyName>regexpad</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -120,9 +120,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Parsepad5.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Parsepad6.ico" />

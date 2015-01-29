@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Pad.UI;
 
-namespace Parsepad
+namespace Regexpad
 {
 	public class RegexOptionsViewModel : ViewModel
 	{
@@ -99,14 +99,14 @@ namespace Parsepad
 
 		private void SetSetting(string key, bool value)
 		{
-			var cu = RegHelper.GetCurrentUser("Parsepad");
+			var cu = RegHelper.GetCurrentUser("Regexpad");
 
 			cu.SetValue(key, Convert.ToInt32(value), Microsoft.Win32.RegistryValueKind.DWord);
 		}
 
 		private bool GetSetting(string key)
 		{
-			var cu = RegHelper.GetCurrentUser("Parsepad");
+			var cu = RegHelper.GetCurrentUser("Regexpad");
 
 			return Convert.ToBoolean(((int?)cu.GetValue(key)) ?? 0);
 		}

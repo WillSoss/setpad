@@ -340,7 +340,7 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{C11B9495-438D-42DB-92A7-70D09F7D1514}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Parsepad.Primary_output</td><td>{5DD44618-C35B-4153-8933-F0B79F91773C}</td><td>INSTALLDIR</td><td>2</td><td/><td>parsepad.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Regexpad.Primary_output</td><td>{9C1E544C-E4A8-4495-8269-C4ACE300B527}</td><td>INSTALLDIR</td><td>2</td><td/><td>regexpad.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Setpad.Primary_output</td><td>{F8AC2E38-BA0C-4029-8C03-944B5C302F9A}</td><td>INSTALLDIR</td><td>2</td><td/><td>setpad.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1862,7 +1862,7 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>AlwaysInstall</td><td>Parsepad.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>Regexpad.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Setpad.Primary_output</td></row>
 	</table>
 
@@ -1878,7 +1878,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>parsepad.primary_output</td><td>Parsepad.Primary_output</td><td>Parsepad.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Parsepad&gt;|Built</td><td>3</td><td/></row>
+		<row><td>regexpad.primary_output</td><td>Regexpad.Primary_output</td><td>Regexpad.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Regexpad1&gt;|Built</td><td>3</td><td/></row>
 		<row><td>setpad.primary_output</td><td>Setpad.Primary_output</td><td>Setpad.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Setpad&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2022,7 +2022,7 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_0AE60597_555D_41A3_B953_84FFFB1459F4_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Parsepad.Primary_output</td><td/><td/><td>_C306F77B_947B_42CC_8F96_7F4F02CE024F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Regexpad.Primary_output</td><td/><td/><td>_C5F9B2AA_781E_4F61_BD3E_7A720F31AFE1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Setpad.Primary_output</td><td/><td/><td>_EA2C6493_D576_4161_BAF8_3CBB6704BB91_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2331,6 +2331,8 @@
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
 		<row><td>Parsepad</td><td>Parsepad\Parsepad.csproj</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
+		<row><td>Regexpad</td><td>Parsepad\Regexpad.csproj</td><td/><td>2</td></row>
+		<row><td>Regexpad1</td><td>Regexpad\Regexpad.csproj</td><td/><td>2</td></row>
 		<row><td>Setpad</td><td>Setpad\Setpad.csproj</td><td/><td>2</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
@@ -3748,6 +3750,8 @@
 		<row><td>ID_STRING3</td><td>1033</td><td>Sossamon</td><td>0</td><td/><td>-526139639</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Regexpad</td><td>0</td><td/><td>-526175506</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Setpad</td><td>0</td><td/><td>-526176471</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>Regexpad</td><td>0</td><td/><td>-391956693</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>Regexpad</td><td>0</td><td/><td>-391919059</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-660383307</td></row>
 	</table>
 
@@ -4438,7 +4442,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>NewShortcut1</td><td>Parsepad.Primary_output</td><td/><td>newfolder1</td><td>2</td></row>
+		<row><td>NewShortcut1</td><td>Regexpad.Primary_output</td><td/><td>newfolder1</td><td>2</td></row>
 		<row><td>NewShortcut2</td><td>Setpad.Primary_output</td><td/><td>newfolder1</td><td>2</td></row>
 	</table>
 
@@ -4525,7 +4529,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>NewShortcut1</td><td>newfolder1</td><td>##ID_STRING4##</td><td>Parsepad.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut1</td><td>newfolder1</td><td>##ID_STRING7##</td><td>Regexpad.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>NewShortcut2</td><td>newfolder1</td><td>##ID_STRING5##</td><td>Setpad.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 

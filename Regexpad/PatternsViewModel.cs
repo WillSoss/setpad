@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Pad.Core;
 using Pad.UI;
 
-namespace Parsepad
+namespace Regexpad
 {
 	public class PatternsViewModel : ViewModel
 	{

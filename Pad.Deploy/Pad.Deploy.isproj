@@ -29,8 +29,8 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup>
-		<ProjectReference Include="..\Parsepad\Parsepad.csproj">
-			<Name>Parsepad</Name>
+		<ProjectReference Include="..\Regexpad\Regexpad.csproj">
+			<Name>Regexpad</Name>
 			<Project>{6771A03E-EFA3-4C05-ADCB-D10CE65980CE}</Project>
 		</ProjectReference>
 		<ProjectReference Include="..\Setpad\Setpad.csproj">

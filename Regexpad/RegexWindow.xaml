@@ -1,4 +1,4 @@
-﻿<Window x:Class="Parsepad.RegexWindow"
+﻿<Window x:Class="Regexpad.RegexWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Save Regex" Height="147" Width="360" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="Parsepad6.ico">

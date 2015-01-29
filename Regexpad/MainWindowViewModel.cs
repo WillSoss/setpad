@@ -11,7 +11,7 @@ using Pad.Core;
 using Pad.UI;
 using RegexOpts = System.Text.RegularExpressions.RegexOptions;
 
-namespace Parsepad
+namespace Regexpad
 {
 	public class MainWindowViewModel : ViewModel
 	{

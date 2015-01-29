@@ -8,7 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using Pad.Core;
 
-namespace Parsepad
+namespace Regexpad
 {
 	class Highlighting
 	{

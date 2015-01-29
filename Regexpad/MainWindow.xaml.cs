@@ -18,7 +18,7 @@ using Pad.Core;
 using Microsoft.Win32;
 using System.IO;
 
-namespace Parsepad
+namespace Regexpad
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml

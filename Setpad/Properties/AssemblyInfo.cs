@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Setpad.UI")]
+[assembly: AssemblyTitle("Setpad")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Setpad.UI")]
-[assembly: AssemblyCopyright("Copyright © 2012-2015 Wm. D. Sossamon")]
+[assembly: AssemblyProduct("Setpad")]
+[assembly: AssemblyCopyright("Copyright © 2012-2015 William D. Sossamon")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

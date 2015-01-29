@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Parsepad
+namespace Regexpad
 {
 	/// <summary>
 	/// Interaction logic for RegexWindow.xaml

@@ -9,8 +9,8 @@ namespace Pad.Core
 {
 	public static class RegexManager
 	{
-		private const string namedpath = "Software\\Sossamon\\Parsepad\\Named Regexes";
-		private const string recentpath = "Software\\Sossamon\\Parsepad\\Recent Regexes";
+		private const string namedpath = "Software\\Sossamon\\Regexpad\\Named Regexes";
+		private const string recentpath = "Software\\Sossamon\\Regexpad\\Recent Regexes";
 		private static Dictionary<string, System.Text.RegularExpressions.Regex> regexes;
 
 		static RegexManager()
