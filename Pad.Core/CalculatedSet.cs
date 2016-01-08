@@ -113,6 +113,5 @@ namespace Pad.Core
 					throw new ArgumentOutOfRangeException("Invalid operation");
 			}
 		}
-
-	}
+    }
 }

@@ -18,6 +18,7 @@
 		<CommandBinding Command="ui:Commands.DifferenceSets" CanExecute="BinaryOp_CanExecute" Executed="DifferenceSets_Executed" />
 		<CommandBinding Command="ui:Commands.SymmetricDifferenceSets" CanExecute="BinaryOp_CanExecute" Executed="SymmetricDifferenceSets_Executed" />
 		<CommandBinding Command="ui:Commands.RemoveSets" CanExecute="UnaryOp_CanExecute" Executed="RemoveSets_Executed" />
+        <CommandBinding Command="ui:Commands.RemoveElements" CanExecute="ElementOp_CanExecute" Executed="RemoveElements_Executed" />
     </Window.CommandBindings>
 
     <Window.InputBindings>
@@ -28,7 +29,6 @@
 		<KeyBinding Key="I" Modifiers="Control" Command="ui:Commands.IntersectSets" />
 		<KeyBinding Key="D" Modifiers="Control" Command="ui:Commands.DifferenceSets" />
 		<KeyBinding Key="S" Modifiers="Control" Command="ui:Commands.SymmetricDifferenceSets" />
-		<KeyBinding Key="Delete" Command="ui:Commands.RemoveSets" />
     </Window.InputBindings>
 
 	<Window.Resources>
@@ -78,7 +78,10 @@
 
 			<ListView Grid.Column="0" x:Name="setlist" ItemsSource="{Binding Path=Sets}"
 					  ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedSets}">
-				<ListView.View>
+                <ListView.InputBindings>
+					<KeyBinding Key="Delete" Command="ui:Commands.RemoveSets" />
+                </ListView.InputBindings>
+                <ListView.View>
 					<GridView>
 						<GridViewColumn Header="Set" DisplayMemberBinding="{Binding Name}" Width="160"/>
 						<GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" Width="80" />
@@ -106,8 +109,12 @@
                 Grid.Column="1" ResizeBehavior="BasedOnAlignment"
                 Width="5" />
 
-			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}">
-				<ListBox.ContextMenu>
+			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}" SelectionMode="Extended"
+					 ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedElements}">
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Delete" Command="ui:Commands.RemoveElements" />
+                </ListBox.InputBindings>
+                <ListBox.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="_Copy" Command="ui:Commands.Copy" />
 						<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"

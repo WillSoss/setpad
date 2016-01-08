@@ -15,6 +15,7 @@ namespace Setpad.UI
 		private readonly ObservableCollection<NamedSet> sets = new ObservableCollection<NamedSet>();
 		private readonly ObservableCollection<NamedSet> selectedSets = new ObservableCollection<NamedSet>();
 		private readonly ObservableCollection<string> selectedSetElements = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> selectedElements = new ObservableCollection<string>();
  
 		public ObservableCollection<NamedSet> Sets
 		{
@@ -30,15 +31,19 @@ namespace Setpad.UI
 			{
 				if (selectedSet != value)
 				{
-					selectedSet = value;
+                    if (selectedSet != null)
+                        selectedSet.CollectionChanged -= SelectedSet_CollectionChanged;
 
+					selectedSet = value;
+                 
 					selectedSetElements.Clear();
 
 					if (value != null)
-					{
-						foreach (var e in value.GetQueryable())
-							selectedSetElements.Add(e);
+                    {
+                        selectedSet.CollectionChanged += SelectedSet_CollectionChanged;
 
+                        foreach (var e in value.GetQueryable())
+							selectedSetElements.Add(e);
 
 						SetDetail = string.Format("{0}: {1} elements", SelectedSet.Name, SelectedSet.Count);
 					}
@@ -51,8 +56,17 @@ namespace Setpad.UI
 				}
 			}
 		}
-		
-		public ObservableCollection<NamedSet> SelectedSets
+
+        private void SelectedSet_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+                foreach (string element in e.OldItems)
+                    selectedSetElements.Remove(element);
+
+            SetDetail = string.Format("{0}: {1} elements", SelectedSet.Name, SelectedSet.Count);
+        }
+
+        public ObservableCollection<NamedSet> SelectedSets
 		{
 			get { return selectedSets; }
 		}
@@ -77,6 +91,11 @@ namespace Setpad.UI
 				}
 			}
 		}
+
+        public ObservableCollection<string> SelectedElements
+        {
+            get { return selectedElements; }
+        }
 
 		private string setDetail;
 
@@ -160,6 +179,8 @@ namespace Setpad.UI
 		public bool CanDoBinaryOp { get { return SelectedSets.Count > 1; } }
 
 		public bool CanDoUnaryOp { get { return SelectedSets.Count > 0; } }
+
+        public bool CanDoElementOp { get { return SelectedElements.Count > 0; } }
 		
 		public void Copy(ListFlattener flattener)
 		{
@@ -212,5 +233,13 @@ namespace Setpad.UI
 				SelectedSets.Clear();
 			});
 		}
-	}
+
+        public void RemoveSelectedElements()
+        {
+            Execute(() =>
+            {
+                selectedSet.Remove(SelectedElements.ToArray());
+            });
+        }
+    }
 }

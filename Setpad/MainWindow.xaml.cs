@@ -152,7 +152,12 @@ namespace Setpad.UI
 			ViewModel.RemoveSelectedSets();
 		}
 
-		private void Paste_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void RemoveElements_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ViewModel.RemoveSelectedElements();
+        }
+
+        private void Paste_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = ViewModel.CanPaste;
 		}
@@ -172,7 +177,12 @@ namespace Setpad.UI
 			e.CanExecute = ViewModel.CanDoUnaryOp;
 		}
 
-		private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void ElementOp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ViewModel.CanDoElementOp;
+        }
+
+        private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			ViewModel.Copy(ListFlattener.TextWithLinebreaks);
 		}

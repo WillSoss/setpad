@@ -18,5 +18,6 @@ namespace Setpad.UI
 		public static RoutedCommand DifferenceSets = new RoutedCommand();
 		public static RoutedCommand SymmetricDifferenceSets = new RoutedCommand();
 		public static RoutedCommand RemoveSets = new RoutedCommand();
-	}
+        public static RoutedCommand RemoveElements = new RoutedCommand();
+    }
 }

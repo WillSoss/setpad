@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -26,6 +27,14 @@ namespace Pad.Core
 		public override IQueryable<string> GetQueryable()
 		{
 			return data.AsQueryable();
-		}
-	}
+        }
+
+        protected override bool RemoveElements(string[] elements)
+        {
+            foreach (var element in elements)
+                data.Remove(element);
+
+            return true;
+        }
+    }
 }
