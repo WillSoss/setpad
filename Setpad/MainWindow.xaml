@@ -77,7 +77,7 @@
 			</Grid.ColumnDefinitions>
 
 			<ListView Grid.Column="0" x:Name="setlist" ItemsSource="{Binding Path=Sets}"
-					  ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedSets}">
+					  ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedSets}" GotFocus="setlist_GotFocus">
                 <ListView.InputBindings>
 					<KeyBinding Key="Delete" Command="ui:Commands.RemoveSets" />
                 </ListView.InputBindings>
@@ -110,7 +110,7 @@
                 Width="5" />
 
 			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}" SelectionMode="Extended"
-					 ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedElements}">
+					 ff:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding SelectedElements}" GotFocus="elements_GotFocus">
                 <ListBox.InputBindings>
                     <KeyBinding Key="Delete" Command="ui:Commands.RemoveElements" />
                 </ListBox.InputBindings>

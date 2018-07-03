@@ -33,6 +33,7 @@ namespace Setpad.UI
 		private DataParser parser;
 		private ListFlattener flattener;
 		private IEnumerable<string> matches;
+		private bool isItemFocus = false;
 
 		public MainWindowViewModel ViewModel { get; private set; }
 
@@ -184,12 +185,22 @@ namespace Setpad.UI
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			ViewModel.Copy(ListFlattener.TextWithLinebreaks);
+			ViewModel.Copy(ListFlattener.TextWithLinebreaks, this.isItemFocus);
 		}
 
 		private void CopyAs_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			ViewModel.Copy(ListFlattener.All.Single(lf => lf.Name == (string)e.Parameter));
+			ViewModel.Copy(ListFlattener.All.Single(lf => lf.Name == (string)e.Parameter), this.isItemFocus);
+		}
+
+		private void elements_GotFocus(object sender, RoutedEventArgs e)
+		{
+			this.isItemFocus = true;
+		}
+
+		private void setlist_GotFocus(object sender, RoutedEventArgs e)
+		{
+			this.isItemFocus = false;
 		}
 	}
 }

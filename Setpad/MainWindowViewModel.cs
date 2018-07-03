@@ -184,9 +184,9 @@ namespace Setpad.UI
 
         public bool CanDoElementOp { get { return SelectedElements.Count > 0; } }
 		
-		public void Copy(ListFlattener flattener)
+		public void Copy(ListFlattener flattener, bool copyElements)
 		{
-			StaClipboard.SetText(flattener.GetString(selectedSet.GetQueryable()));
+			StaClipboard.SetText(flattener.GetString(copyElements ? selectedElements.ToList() : selectedSet.GetQueryable().ToList()));
 		}
 
 		public void UnionSelectedSets()
