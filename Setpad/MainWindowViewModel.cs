@@ -225,6 +225,14 @@ namespace Setpad.UI
 			});
 		}
 
+		public void Subset()
+		{
+			Execute(() =>
+			{
+				sets.Add(new Subset(selectedSet, new HashSet<string>(selectedElements)));
+			});
+		}
+
 		public void RemoveSelectedSets()
 		{
 			Execute(() =>

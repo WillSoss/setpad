@@ -148,6 +148,11 @@ namespace Setpad.UI
 			ViewModel.SymmetricDifferenceSelectedSets();
 		}
 
+		private void Subset_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.Subset();
+		}
+
 		private void RemoveSets_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			ViewModel.RemoveSelectedSets();

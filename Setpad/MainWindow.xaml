@@ -19,7 +19,8 @@
 		<CommandBinding Command="ui:Commands.SymmetricDifferenceSets" CanExecute="BinaryOp_CanExecute" Executed="SymmetricDifferenceSets_Executed" />
 		<CommandBinding Command="ui:Commands.RemoveSets" CanExecute="UnaryOp_CanExecute" Executed="RemoveSets_Executed" />
         <CommandBinding Command="ui:Commands.RemoveElements" CanExecute="ElementOp_CanExecute" Executed="RemoveElements_Executed" />
-    </Window.CommandBindings>
+		<CommandBinding Command="ui:Commands.Subset" CanExecute="ElementOp_CanExecute" Executed="Subset_Executed" />
+	</Window.CommandBindings>
 
     <Window.InputBindings>
         <KeyBinding Key="O" Modifiers="Control" Command="ui:Commands.Open"/>
@@ -118,6 +119,8 @@
 						<MenuItem Header="_Copy" Command="ui:Commands.Copy" />
 						<MenuItem Header="Copy _As" ItemsSource="{Binding Source={x:Static Member=core:ListFlattener.All}}"
                           ItemContainerStyle="{StaticResource CopyAsItems}" />
+						<Separator />
+						<MenuItem Header="_Subset" Command="ui:Commands.Subset" />
 					</ContextMenu>
 				</ListBox.ContextMenu>
 			</ListBox>

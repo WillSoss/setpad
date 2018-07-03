@@ -10,7 +10,8 @@ namespace Pad.Core
 		Union,
 		Intersection,
 		Difference,
-		SymmetricDifference
+		SymmetricDifference,
+		Subset
 	}
 
 	public class CalculatedSet : NamedSet
@@ -39,23 +40,6 @@ namespace Pad.Core
 
 			return name.Remove(name.Length - 3, 3).ToString();
 		}
-
-		private static string GetOp(SetOperation op)
-		{
-			switch (op)
-			{
-				case SetOperation.Union: return "∪";
-
-				case SetOperation.Intersection: return "∩";
-
-				case SetOperation.Difference: return "\\";
-
-				case SetOperation.SymmetricDifference: return "∆";
-
-				default: throw new ArgumentOutOfRangeException("Invalid operation");
-			}
-		}
-
 
 		public IEnumerable<NamedSet> Sets { get; private set; }
 

@@ -7,7 +7,25 @@ namespace Pad.Core
 {
 	public abstract class NamedSet : INotifyCollectionChanged, INotifyPropertyChanged
     {
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+		public static string GetOp(SetOperation op)
+		{
+			switch (op)
+			{
+				case SetOperation.Union: return "∪";
+
+				case SetOperation.Intersection: return "∩";
+
+				case SetOperation.Difference: return "\\";
+
+				case SetOperation.SymmetricDifference: return "∆";
+
+				case SetOperation.Subset: return "⊂";
+
+				default: throw new ArgumentOutOfRangeException("Invalid operation");
+			}
+		}
+
+		public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected NamedSet(string name, bool isCompositeSet)
