@@ -16,6 +16,8 @@ namespace Setpad.UI
 		private readonly ObservableCollection<NamedSet> selectedSets = new ObservableCollection<NamedSet>();
 		private readonly ObservableCollection<string> selectedSetElements = new ObservableCollection<string>();
         private readonly ObservableCollection<string> selectedElements = new ObservableCollection<string>();
+
+		private int setNumber = 1;
  
 		public ObservableCollection<NamedSet> Sets
 		{
@@ -169,7 +171,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var name = "S" + (sets.Where(s => s is RawSet).Count() + 1);
+					var name = "S" + setNumber++;
 					var set = new RawSet(name, new HashSet<string>(data));
 					sets.Add(set);
 					selectedSets.Add(set);

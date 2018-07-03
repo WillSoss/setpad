@@ -1,230 +1,28 @@
-/lib
-AssemblyVersion.cs
 node_modules
-bower_components
-*.less.css
-*.js.map
-map-cache
-.grunt
-_SpecRunner.html
+npm-debug.log*
+package-lock.json
+yarn-error.log
+.module-cache
+packages
 
-####################
-## Config Templates
-####################
-src/CivicSource/CivicSource.Util/CivicSource.Migrator/app.config
-src/CivicSource/CivicSource.Util/CivicSource.NinjaThief/app.config
-src/CivicSource/CivicSource.Util/CivicSource.ReportingNuke/app.config
+AssemblyVersion.cs
 
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/connections.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/cryptography.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/emailNotification.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/eventPublishing.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/log4net.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/scrubbing.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/settings.config
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/skiptracing.config
-
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/connections.config
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/cryptography.config
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/eventPublishing.config
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/log4net.config
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/settings.config
-
-src/ContentManagement/Documents.Desktop.Editor/app.config
-
-####################
-## Shared Web Assets
-####################
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/fonts
-
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/fonts
-
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/bootstrap
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_alertbox.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_generate-color.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_pager.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/click-to-edit.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/tippy.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/tldr.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/type.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/typeahead.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/validation.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/watermark.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/font-awesome-*.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_sprite-icon-ffmt.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/constants.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/fixedheadertable.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_icon-fonts.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_generate-sprite.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_grid-fluid.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_text-format.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_type.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_font-awesome.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_font-awesome-ie7.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/modernizr_mixins.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/preboot.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/fancybox.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_defuzz-selection.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/select2.less
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/less/_spin.less
-
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/images
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/sprites
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/blank.gif
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/fancybox_loading.gif
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/fancybox_sprite.png
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/select2.png
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/select2x2.png
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/img/spinner.gif
-
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/constants.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_alertbox.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_pager.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_sprite-icon-ffmt.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/bootstrap.css
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/bootstrap
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/watermark.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/click-to-edit.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/font-awesome-*.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/tippy.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/tldr.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/type.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/fixedheadertable.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_icon-fonts.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_spin.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_generate-color.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_generate-sprite.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_grid.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_grid-fluid.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_text-format.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_type.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_font-awesome.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_font-awesome-ie7.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/modernizr_mixins.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/preboot.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/chosen.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/fancybox.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/h5bp.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/popbox.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/select2.less
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/less/_defuzz-selection.less
-
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/images/results_next.gif
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/images/results_previous.gif
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/sprites/icon-ffmt-2x.png
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/sprites/icon-ffmt.png
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/blank.gif
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/fancybox_loading.gif
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/fancybox_sprite.png
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/select2.png
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/select2x2.png
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/img/spinner.gif
-
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/framework
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/lib
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/main.min.js
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/modules/viewPropertyImages.js
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/tests/framework
-src/CivicSource/CivicSource.Web/CivicSource.Administrator.Web/content/scripts/bid
-
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/framework
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/lib
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/main.min.js
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/tests/framework
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/bid/amount.js
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/content/scripts/bid/amount.tests.js
-
-src/CivicSource/CivicSource.TaxAuthorities/CivicSource.TaxAuthorities.LA.Core/assets/styles/dist.css
-
-#################
-## Visual Studio
-#################
-
-## Ignore Visual Studio temporary files, build results, and
-## files generated by popular Visual Studio add-ons.
-
-# User-specific files
+.vs
 *.suo
 *.user
-*.sln.docstates
-
-# Build results
-[Dd]ebug/
-[Rr]elease/
-*_i.c
-*_p.c
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.vspscc
-.builds
-*.dotCover
-
-## TODO: If you have NuGet Package Restore enabled, uncomment this
-#packages/
-
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-
-# Visual Studio profiler
-*.psess
-*.vsp
-
-# ReSharper is a .NET coding add-in
-_ReSharper*
-
-# Installshield output folder
-[Ee]xpress
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
-
-# Click-Once directory
-publish
-
-# Others
 [Bb]in
 [Oo]bj
 TestResults
-*.Cache
-ClientBin
-stylecop.*
-~$*
-*.dbmdl
-Generated_Code #added for RIA/Silverlight projects
+
+*.code-workspace
+
+_ReSharper*
+*.DotSettings
 
 # Backup & report files from converting an old project file to a newer
-# Visual Studio version. Backup files are not needed, because we have git ;-)
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
-
-
-
-############
-## Windows
-############
 
 # Windows image file caches
 Thumbs.db
@@ -234,4 +32,10 @@ Desktop.ini
 
 # weird git-svn artifact
 sys$command
-src/CivicSource/CivicSource.Web/CivicSource.Auctioneer.Web/map-cache/-1103636070
+
+
+# Windows Azure Build Output
+csx
+rcf
+ecf
+*.build.csdef
