@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Pad.Core
 {
-	public class Subset : NamedSet
+	public class Subset : Set
 	{
 		private HashSet<string> elements;
 
-		public Subset(NamedSet superset, HashSet<string> elements)
-			: base($"{GetOp(SetOperation.Subset)} {superset.Name}", false)
+		public Subset(Set superset, HashSet<string> elements)
+			: base($"{Operator(SetOperation.Subset)} {superset.Name}", false)
 		{
 			if (superset == null)
 				throw new ArgumentNullException("Superset is required");
@@ -21,7 +21,7 @@ namespace Pad.Core
 			this.elements = elements;
 		}
 
-		public NamedSet Superset { get; private set; }
+		public Set Superset { get; private set; }
 
 		public override int Count
 		{

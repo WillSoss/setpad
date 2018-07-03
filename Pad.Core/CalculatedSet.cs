@@ -5,18 +5,9 @@ using System.Text;
 
 namespace Pad.Core
 {
-	public enum SetOperation
+	public class CalculatedSet : Set
 	{
-		Union,
-		Intersection,
-		Difference,
-		SymmetricDifference,
-		Subset
-	}
-
-	public class CalculatedSet : NamedSet
-	{
-		public CalculatedSet(IEnumerable<NamedSet> sets, SetOperation op)
+		public CalculatedSet(IEnumerable<Set> sets, SetOperation op)
 			: base(GetSetName(sets, op), true)
 		{
 			if (sets == null)
@@ -29,19 +20,19 @@ namespace Pad.Core
 			this.Operation = op;
 		}
 
-		private static string GetSetName(IEnumerable<NamedSet> sets, SetOperation op)
+		private static string GetSetName(IEnumerable<Set> sets, SetOperation op)
 		{
 			StringBuilder name = new StringBuilder();
 
 			foreach(var set in sets)
 			{
-				name.AppendFormat("{0} {1} ", set.OrderedName, GetOp(op));
+				name.AppendFormat("{0} {1} ", set.OrderedName, Operator(op));
 			}
 
 			return name.Remove(name.Length - 3, 3).ToString();
 		}
 
-		public IEnumerable<NamedSet> Sets { get; private set; }
+		public IEnumerable<Set> Sets { get; private set; }
 
 		public SetOperation Operation { get; private set; }
 

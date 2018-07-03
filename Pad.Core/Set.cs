@@ -5,9 +5,20 @@ using System.Linq;
 
 namespace Pad.Core
 {
-	public abstract class NamedSet : INotifyCollectionChanged, INotifyPropertyChanged
+	public enum SetOperation
+	{
+		Union,
+		Intersection,
+		Difference,
+		SymmetricDifference,
+		Subset
+	}
+
+	public abstract class Set : INotifyCollectionChanged, INotifyPropertyChanged
     {
-		public static string GetOp(SetOperation op)
+		const string subscript = "₀₁₂₃₄₅₆₇₈₉";
+
+		public static string Operator(SetOperation op)
 		{
 			switch (op)
 			{
@@ -25,15 +36,30 @@ namespace Pad.Core
 			}
 		}
 
+		public static string ReplaceNumbersWithSubscripts(string value)
+		{
+			return value
+				.Replace('0', subscript[0])
+				.Replace('1', subscript[1])
+				.Replace('2', subscript[2])
+				.Replace('3', subscript[3])
+				.Replace('4', subscript[4])
+				.Replace('5', subscript[5])
+				.Replace('6', subscript[6])
+				.Replace('7', subscript[7])
+				.Replace('8', subscript[8])
+				.Replace('9', subscript[9]);
+		}
+
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected NamedSet(string name, bool isCompositeSet)
+        protected Set(string name, bool isCompositeSet)
 		{
 			if (string.IsNullOrWhiteSpace(name))
 				throw new ArgumentNullException("Name is required");
 
-			this.Name = name;
+			this.Name = ReplaceNumbersWithSubscripts(name);
 			this.IsCompositeSet = isCompositeSet;
 		}
 

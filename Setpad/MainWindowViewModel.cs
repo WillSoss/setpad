@@ -12,21 +12,21 @@ namespace Setpad.UI
 {
 	public class MainWindowViewModel : ViewModel
 	{
-		private readonly ObservableCollection<NamedSet> sets = new ObservableCollection<NamedSet>();
-		private readonly ObservableCollection<NamedSet> selectedSets = new ObservableCollection<NamedSet>();
+		private readonly ObservableCollection<Set> sets = new ObservableCollection<Set>();
+		private readonly ObservableCollection<Set> selectedSets = new ObservableCollection<Set>();
 		private readonly ObservableCollection<string> selectedSetElements = new ObservableCollection<string>();
         private readonly ObservableCollection<string> selectedElements = new ObservableCollection<string>();
 
 		private int setNumber = 1;
  
-		public ObservableCollection<NamedSet> Sets
+		public ObservableCollection<Set> Sets
 		{
 			get { return sets; }
 		}
 
-		private NamedSet selectedSet;
+		private Set selectedSet;
 
-		public NamedSet SelectedSet
+		public Set SelectedSet
 		{
 			get { return selectedSet; }
 			set
@@ -68,7 +68,7 @@ namespace Setpad.UI
             SetDetail = string.Format("{0}: {1} elements", SelectedSet.Name, SelectedSet.Count);
         }
 
-        public ObservableCollection<NamedSet> SelectedSets
+        public ObservableCollection<Set> SelectedSets
 		{
 			get { return selectedSets; }
 		}

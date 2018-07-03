@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Pad.Core
 {
-	public class RawSet : NamedSet
+	public class RawSet : Set
 	{
 		private readonly HashSet<string> data;
 

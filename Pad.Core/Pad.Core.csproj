@@ -51,7 +51,7 @@
     <Compile Include="CalculatedSet.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="ListFlatteners\JsonArray.cs" />
-    <Compile Include="NamedSet.cs" />
+    <Compile Include="Set.cs" />
     <Compile Include="ListFlattener.cs" />
     <Compile Include="ListFlatteners\CSharpStringArray.cs" />
     <Compile Include="ListFlatteners\Regex.cs" />
