@@ -104,9 +104,8 @@
 				</ListView.ContextMenu>
 			</ListView>
 
-			<GridSplitter HorizontalAlignment="Right" 
-                VerticalAlignment="Stretch" 
-                Grid.Column="1" ResizeBehavior="BasedOnAlignment"
+			<GridSplitter Grid.Column="1" HorizontalAlignment="Center" 
+                VerticalAlignment="Stretch"
                 Width="5" />
 
 			<ListBox Grid.Column="2" x:Name="elements" ItemsSource="{Binding Path=SelectedSetElements}" SelectionMode="Extended"
