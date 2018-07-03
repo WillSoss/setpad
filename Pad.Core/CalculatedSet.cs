@@ -7,8 +7,8 @@ namespace Pad.Core
 {
 	public class CalculatedSet : Set
 	{
-		public CalculatedSet(IEnumerable<Set> sets, SetOperation op)
-			: base(GetSetName(sets, op), true)
+		public CalculatedSet(string name, IEnumerable<Set> sets, SetOperation op)
+			: base(name, GetSetName(sets, op), true)
 		{
 			if (sets == null)
 				throw new ArgumentNullException("Sets is required");
@@ -26,7 +26,7 @@ namespace Pad.Core
 
 			foreach(var set in sets)
 			{
-				name.AppendFormat("{0} {1} ", set.OrderedName, Operator(op));
+				name.AppendFormat("{0} {1} ", set.DefinedAsParens, Operator(op));
 			}
 
 			return name.Remove(name.Length - 3, 3).ToString();

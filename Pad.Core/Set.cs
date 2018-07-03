@@ -30,7 +30,7 @@ namespace Pad.Core
 
 				case SetOperation.SymmetricDifference: return "∆";
 
-				case SetOperation.Subset: return "⊂";
+				case SetOperation.Subset: return "⊆";
 
 				default: throw new ArgumentOutOfRangeException("Invalid operation");
 			}
@@ -54,17 +54,19 @@ namespace Pad.Core
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected Set(string name, bool isCompositeSet)
+        protected Set(string name, string definedAs, bool isCompositeSet)
 		{
 			if (string.IsNullOrWhiteSpace(name))
-				throw new ArgumentNullException("Name is required");
-
-			this.Name = ReplaceNumbersWithSubscripts(name);
+				throw new ArgumentNullException(nameof(name), "Cannot be null");
+				
+			this.Name = ReplaceNumbersWithSubscripts(name); ;
+			this.DefinedAs = string.IsNullOrWhiteSpace(definedAs) ? Name : definedAs;
 			this.IsCompositeSet = isCompositeSet;
 		}
 
 		public string Name { get; private set; }
-		public string OrderedName { get { return IsCompositeSet ? "(" + Name + ")" : Name; } }
+		public string DefinedAs { get; private set; }
+		public string DefinedAsParens { get { return IsCompositeSet ? "(" + DefinedAs + ")" : DefinedAs; } }
 		public bool IsCompositeSet { get; private set; }
 		public abstract int Count { get; }
 

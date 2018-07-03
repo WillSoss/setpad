@@ -84,8 +84,9 @@
                 </ListView.InputBindings>
                 <ListView.View>
 					<GridView>
-						<GridViewColumn Header="Set" DisplayMemberBinding="{Binding Name}" Width="160"/>
-						<GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" Width="80" />
+						<GridViewColumn Header="Set" DisplayMemberBinding="{Binding Name}" Width="40"/>
+						<GridViewColumn Header="Defined As" DisplayMemberBinding="{Binding DefinedAs}" Width="160"/>
+						<GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}" Width="40" />
 					</GridView>
 				</ListView.View>
 				<ListView.ContextMenu>

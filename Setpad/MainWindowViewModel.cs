@@ -47,7 +47,7 @@ namespace Setpad.UI
                         foreach (var e in value.GetQueryable())
 							selectedSetElements.Add(e);
 
-						SetDetail = string.Format("{0}: {1} elements", SelectedSet.Name, SelectedSet.Count);
+						SetDetail = string.Format("{0}: {1} elements", SelectedSet.DefinedAs, SelectedSet.Count);
 					}
 					else
 					{
@@ -65,7 +65,7 @@ namespace Setpad.UI
                 foreach (string element in e.OldItems)
                     selectedSetElements.Remove(element);
 
-            SetDetail = string.Format("{0}: {1} elements", SelectedSet.Name, SelectedSet.Count);
+            SetDetail = string.Format("{0}: {1} elements", SelectedSet.DefinedAs, SelectedSet.Count);
         }
 
         public ObservableCollection<Set> SelectedSets
@@ -148,6 +148,11 @@ namespace Setpad.UI
 			selectedSets.CollectionChanged += selectedSets_CollectionChanged;
 		}
 
+		private string GetSetName()
+		{
+			return "S" + setNumber++;
+		}
+
 		void selectedSets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			SelectedSet = selectedSets.FirstOrDefault();
@@ -157,7 +162,7 @@ namespace Setpad.UI
 				StringBuilder s = new StringBuilder();
 
 				foreach (var set in selectedSets)
-						s.AppendFormat("{0} □ ", set.OrderedName);
+						s.AppendFormat("{0} □ ", set.DefinedAsParens);
 
 				SelectedSetOrder = s.Remove(s.Length - 3, 3).ToString();
 			}
@@ -171,8 +176,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var name = "S" + setNumber++;
-					var set = new RawSet(name, new HashSet<string>(data));
+					var set = new RawSet(GetSetName(), new HashSet<string>(data));
 					sets.Add(set);
 					selectedSets.Add(set);
 				});
@@ -193,7 +197,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var set = new CalculatedSet(SelectedSets, SetOperation.Union);
+					var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Union);
 					sets.Add(set);
 				});
 		}
@@ -202,7 +206,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets, SetOperation.Intersection);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Intersection);
 				sets.Add(set);
 			});
 		}
@@ -211,7 +215,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets, SetOperation.Difference);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Difference);
 				sets.Add(set);
 			});
 		}
@@ -220,7 +224,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(SelectedSets, SetOperation.SymmetricDifference);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.SymmetricDifference);
 				sets.Add(set);
 			});
 		}
@@ -229,7 +233,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				sets.Add(new Subset(selectedSet, new HashSet<string>(selectedElements)));
+				sets.Add(new Subset(GetSetName(), selectedSet, new HashSet<string>(selectedElements)));
 			});
 		}
 

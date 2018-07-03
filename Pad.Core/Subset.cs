@@ -8,8 +8,8 @@ namespace Pad.Core
 	{
 		private HashSet<string> elements;
 
-		public Subset(Set superset, HashSet<string> elements)
-			: base($"{Operator(SetOperation.Subset)} {superset.Name}", false)
+		public Subset(string name, Set superset, HashSet<string> elements)
+			: base(name, $"{Operator(SetOperation.Subset)} {superset.DefinedAsParens}", false)
 		{
 			if (superset == null)
 				throw new ArgumentNullException("Superset is required");
