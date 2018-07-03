@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Pad.Core
 {
-	public enum SetOperation
+	public enum Op
 	{
 		Union,
 		Intersection,
@@ -18,19 +18,19 @@ namespace Pad.Core
     {
 		const string subscript = "₀₁₂₃₄₅₆₇₈₉";
 
-		public static string Operator(SetOperation op)
+		public static string Operator(Op op)
 		{
 			switch (op)
 			{
-				case SetOperation.Union: return "∪";
+				case Op.Union: return "∪";
 
-				case SetOperation.Intersection: return "∩";
+				case Op.Intersection: return "∩";
 
-				case SetOperation.Difference: return "\\";
+				case Op.Difference: return "\\";
 
-				case SetOperation.SymmetricDifference: return "∆";
+				case Op.SymmetricDifference: return "∆";
 
-				case SetOperation.Subset: return "⊆";
+				case Op.Subset: return "⊆";
 
 				default: throw new ArgumentOutOfRangeException("Invalid operation");
 			}

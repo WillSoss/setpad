@@ -7,7 +7,7 @@ namespace Pad.Core
 {
 	public class CalculatedSet : Set
 	{
-		public CalculatedSet(string name, IEnumerable<Set> sets, SetOperation op)
+		public CalculatedSet(string name, IEnumerable<Set> sets, Op op)
 			: base(name, GetSetName(sets, op), true)
 		{
 			if (sets == null)
@@ -20,7 +20,7 @@ namespace Pad.Core
 			this.Operation = op;
 		}
 
-		private static string GetSetName(IEnumerable<Set> sets, SetOperation op)
+		private static string GetSetName(IEnumerable<Set> sets, Op op)
 		{
 			StringBuilder name = new StringBuilder();
 
@@ -34,7 +34,7 @@ namespace Pad.Core
 
 		public IEnumerable<Set> Sets { get; private set; }
 
-		public SetOperation Operation { get; private set; }
+		public Op Operation { get; private set; }
 
 		public override int Count
 		{
@@ -45,9 +45,9 @@ namespace Pad.Core
 		{
 			var query = GetQueryable(Operation);
 
-			if (Operation == SetOperation.SymmetricDifference)
+			if (Operation == Op.SymmetricDifference)
 			{
-				var intersection = GetQueryable(SetOperation.Intersection);
+				var intersection = GetQueryable(Op.Intersection);
 
 				query = query.Except(intersection);
 			}
@@ -55,7 +55,7 @@ namespace Pad.Core
 			return query;
 		}
 
-		private IQueryable<string> GetQueryable(SetOperation op)
+		private IQueryable<string> GetQueryable(Op op)
 		{
 			IQueryable<string> query = null;
 
@@ -70,18 +70,18 @@ namespace Pad.Core
 			return query;
 		}
 
-		private static IQueryable<string> DoOp(IQueryable<string> a, IQueryable<string> b, SetOperation op)
+		private static IQueryable<string> DoOp(IQueryable<string> a, IQueryable<string> b, Op op)
 		{
 			switch (op)
 			{
-				case SetOperation.Union:
-				case SetOperation.SymmetricDifference:
+				case Op.Union:
+				case Op.SymmetricDifference:
 					return a.Union(b);
 
-				case SetOperation.Intersection:
+				case Op.Intersection:
 					return a.Intersect(b);
 
-				case SetOperation.Difference:
+				case Op.Difference:
 					return a.Except(b);
 
 				default:

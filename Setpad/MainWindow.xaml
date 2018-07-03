@@ -20,6 +20,7 @@
 		<CommandBinding Command="ui:Commands.RemoveSets" CanExecute="UnaryOp_CanExecute" Executed="RemoveSets_Executed" />
         <CommandBinding Command="ui:Commands.RemoveElements" CanExecute="ElementOp_CanExecute" Executed="RemoveElements_Executed" />
 		<CommandBinding Command="ui:Commands.Subset" CanExecute="ElementOp_CanExecute" Executed="Subset_Executed" />
+		<CommandBinding Command="ui:Commands.InvertedSubset" CanExecute="ElementOp_CanExecute" Executed="InvertedSubset_Execute" />
 	</Window.CommandBindings>
 
     <Window.InputBindings>
@@ -122,6 +123,7 @@
                           ItemContainerStyle="{StaticResource CopyAsItems}" />
 						<Separator />
 						<MenuItem Header="_Subset" Command="ui:Commands.Subset" />
+						<MenuItem Header="Subset from _Inverted" Command="ui:Commands.InvertedSubset" />
 					</ContextMenu>
 				</ListBox.ContextMenu>
 			</ListBox>

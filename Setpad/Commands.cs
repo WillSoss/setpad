@@ -20,5 +20,6 @@ namespace Setpad.UI
 		public static RoutedCommand RemoveSets = new RoutedCommand();
         public static RoutedCommand RemoveElements = new RoutedCommand();
 		public static RoutedCommand Subset = new RoutedCommand();
+		public static RoutedCommand InvertedSubset = new RoutedCommand();
     }
 }

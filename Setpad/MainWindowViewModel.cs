@@ -197,7 +197,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Union);
+					var set = new CalculatedSet(GetSetName(), SelectedSets, Op.Union);
 					sets.Add(set);
 				});
 		}
@@ -206,7 +206,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Intersection);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, Op.Intersection);
 				sets.Add(set);
 			});
 		}
@@ -215,7 +215,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.Difference);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, Op.Difference);
 				sets.Add(set);
 			});
 		}
@@ -224,7 +224,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 			{
-				var set = new CalculatedSet(GetSetName(), SelectedSets, SetOperation.SymmetricDifference);
+				var set = new CalculatedSet(GetSetName(), SelectedSets, Op.SymmetricDifference);
 				sets.Add(set);
 			});
 		}
@@ -234,6 +234,14 @@ namespace Setpad.UI
 			Execute(() =>
 			{
 				sets.Add(new Subset(GetSetName(), selectedSet, new HashSet<string>(selectedElements)));
+			});
+		}
+
+		public void InvertedSubset()
+		{
+			Execute(() =>
+			{
+				sets.Add(new Subset(GetSetName(), selectedSet, new HashSet<string>(selectedElements), true));
 			});
 		}
 

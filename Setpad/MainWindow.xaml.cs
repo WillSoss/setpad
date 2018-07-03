@@ -153,6 +153,11 @@ namespace Setpad.UI
 			ViewModel.Subset();
 		}
 
+		private void InvertedSubset_Execute(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.InvertedSubset();
+		}
+
 		private void RemoveSets_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			ViewModel.RemoveSelectedSets();
