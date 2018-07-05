@@ -124,6 +124,8 @@
 						<Separator />
 						<MenuItem Header="_Subset" Command="ui:Commands.Subset" />
 						<MenuItem Header="Subset from _Inverted" Command="ui:Commands.InvertedSubset" />
+						<Separator />
+						<MenuItem Header="_Remove" Command="ui:Commands.RemoveElements" />
 					</ContextMenu>
 				</ListBox.ContextMenu>
 			</ListBox>
