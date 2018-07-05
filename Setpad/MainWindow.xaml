@@ -28,10 +28,12 @@
         <KeyBinding Key="O" Modifiers="Control" Command="ui:Commands.Open"/>
 		<KeyBinding Key="C" Modifiers="Control" Command="ui:Commands.Copy" />
 		<KeyBinding Key="V" Modifiers="Control" Command="ui:Commands.Paste" />
-		<KeyBinding Key="U" Modifiers="Control" Command="ui:Commands.UnionSets" />
-		<KeyBinding Key="I" Modifiers="Control" Command="ui:Commands.IntersectSets" />
-		<KeyBinding Key="D" Modifiers="Control" Command="ui:Commands.DifferenceSets" />
-		<KeyBinding Key="S" Modifiers="Control" Command="ui:Commands.SymmetricDifferenceSets" />
+		<KeyBinding Key="U"  Command="ui:Commands.UnionSets" />
+		<KeyBinding Key="I" Command="ui:Commands.IntersectSets" />
+		<KeyBinding Key="D" Command="ui:Commands.DifferenceSets" />
+		<KeyBinding Key="D" Modifiers="Ctrl" Command="ui:Commands.SymmetricDifferenceSets" />
+		<KeyBinding Key="S" Command="ui:Commands.Subset" />
+		<KeyBinding Key="S" Modifiers="Ctrl" Command="ui:Commands.InvertedSubset" />
 		<KeyBinding Key="T" Command="ui:Commands.Trim" />
 	</Window.InputBindings>
 
@@ -63,10 +65,13 @@
                           ItemContainerStyle="{StaticResource CopyAsItems}" />
 				<MenuItem Header="_Paste" Command="ui:Commands.Paste" InputGestureText="Ctrl+V" />
 				<Separator />
-				<MenuItem Header="_Union" Command="ui:Commands.UnionSets" InputGestureText="Ctrl+U" />
-				<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" InputGestureText="Ctrl+I" />
-				<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" InputGestureText="Ctrl+D" />
-				<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" InputGestureText="Ctrl+S" />
+				<MenuItem Header="_Union" Command="ui:Commands.UnionSets" InputGestureText="U" />
+				<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" InputGestureText="I" />
+				<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" InputGestureText="D" />
+				<MenuItem Header="Symmetric Di_fference" Command="ui:Commands.SymmetricDifferenceSets" InputGestureText="Ctrl+D" />
+				<Separator />
+				<MenuItem Header="_Subset" Command="ui:Commands.Subset" InputGestureText="S" />
+				<MenuItem Header="Subset from _Inverted" Command="ui:Commands.InvertedSubset" InputGestureText="Ctrl+S" />
 				<Separator />
 				<MenuItem Header="_Trim" Command="ui:Commands.Trim" InputGestureText="T" />
 				<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" InputGestureText="Del" />
