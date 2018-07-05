@@ -176,7 +176,7 @@ namespace Setpad.UI
 		{
 			Execute(() =>
 				{
-					var set = new RawSet(GetSetName(), new HashSet<string>(data));
+					var set = new RawSet(GetSetName(), null, new HashSet<string>(data));
 					sets.Add(set);
 					selectedSets.Add(set);
 				});
@@ -280,7 +280,7 @@ namespace Setpad.UI
 						set.Add(value);
 				}
 
-				sets.Add(new RawSet(GetSetName(), set));
+				sets.Add(new RawSet(GetSetName(), $"Trim({selectedSet.Name})", set));
 			});
 		}
     }
