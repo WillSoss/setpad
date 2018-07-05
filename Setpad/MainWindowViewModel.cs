@@ -263,5 +263,25 @@ namespace Setpad.UI
                 selectedSet.Remove(SelectedElements.ToArray());
             });
         }
+
+		public void Trim()
+		{
+			Execute(() =>
+			{
+				HashSet<string> set = new HashSet<string>();
+
+				foreach (var value in selectedSet.GetQueryable())
+				{
+					var trimAt = value.IndexOfAny(new char[] { '\t', ',', ';', '|' });
+
+					if (trimAt > 0)
+						set.Add(value.Substring(0, trimAt));
+					else
+						set.Add(value);
+				}
+
+				sets.Add(new RawSet(GetSetName(), set));
+			});
+		}
     }
 }

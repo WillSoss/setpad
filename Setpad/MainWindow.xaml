@@ -21,6 +21,7 @@
         <CommandBinding Command="ui:Commands.RemoveElements" CanExecute="ElementOp_CanExecute" Executed="RemoveElements_Executed" />
 		<CommandBinding Command="ui:Commands.Subset" CanExecute="ElementOp_CanExecute" Executed="Subset_Executed" />
 		<CommandBinding Command="ui:Commands.InvertedSubset" CanExecute="ElementOp_CanExecute" Executed="InvertedSubset_Execute" />
+		<CommandBinding Command="ui:Commands.Trim" CanExecute="UnaryOp_CanExecute" Executed="Trim_Execute" />
 	</Window.CommandBindings>
 
     <Window.InputBindings>
@@ -31,7 +32,8 @@
 		<KeyBinding Key="I" Modifiers="Control" Command="ui:Commands.IntersectSets" />
 		<KeyBinding Key="D" Modifiers="Control" Command="ui:Commands.DifferenceSets" />
 		<KeyBinding Key="S" Modifiers="Control" Command="ui:Commands.SymmetricDifferenceSets" />
-    </Window.InputBindings>
+		<KeyBinding Key="T" Command="ui:Commands.Trim" />
+	</Window.InputBindings>
 
 	<Window.Resources>
 		<Style x:Key="CopyAsItems" TargetType="MenuItem">
@@ -61,12 +63,13 @@
                           ItemContainerStyle="{StaticResource CopyAsItems}" />
 				<MenuItem Header="_Paste" Command="ui:Commands.Paste" InputGestureText="Ctrl+V" />
 				<Separator />
-				<MenuItem Header="Union" Command="ui:Commands.UnionSets" InputGestureText="Ctrl+U" />
-				<MenuItem Header="Intersect" Command="ui:Commands.IntersectSets" InputGestureText="Ctrl+I" />
-				<MenuItem Header="Difference" Command="ui:Commands.DifferenceSets" InputGestureText="Ctrl+D" />
-				<MenuItem Header="Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" InputGestureText="Ctrl+S" />
+				<MenuItem Header="_Union" Command="ui:Commands.UnionSets" InputGestureText="Ctrl+U" />
+				<MenuItem Header="_Intersect" Command="ui:Commands.IntersectSets" InputGestureText="Ctrl+I" />
+				<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" InputGestureText="Ctrl+D" />
+				<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" InputGestureText="Ctrl+S" />
 				<Separator />
-				<MenuItem Header="Remove" Command="ui:Commands.RemoveSets" InputGestureText="Del" />
+				<MenuItem Header="_Trim" Command="ui:Commands.Trim" InputGestureText="T" />
+				<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" InputGestureText="Del" />
 			</MenuItem>
 		</Menu>
 
@@ -102,6 +105,7 @@
 						<MenuItem Header="_Difference" Command="ui:Commands.DifferenceSets" />
 						<MenuItem Header="_Symmetric Difference" Command="ui:Commands.SymmetricDifferenceSets" />
 						<Separator />
+						<MenuItem Header="_Trim" Command="ui:Commands.Trim" />
 						<MenuItem Header="_Remove" Command="ui:Commands.RemoveSets" />
 					</ContextMenu>
 				</ListView.ContextMenu>

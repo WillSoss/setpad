@@ -212,5 +212,10 @@ namespace Setpad.UI
 		{
 			this.isItemFocus = false;
 		}
+
+		private void Trim_Execute(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.Trim();
+		}
 	}
 }
