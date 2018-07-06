@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using System.Windows;
 
 namespace Pad.Core
@@ -23,7 +17,7 @@ namespace Pad.Core
 			t.SetApartmentState(ApartmentState.STA);
 
 			t.Start();
-			t.Join();
+			t.Join(2000);
 
 			return value;
 		}
@@ -38,7 +32,7 @@ namespace Pad.Core
 			t.SetApartmentState(ApartmentState.STA);
 
 			t.Start();
-			t.Join();
+			t.Join(2000);
 		}
 
 		public static string GetText()
@@ -53,7 +47,7 @@ namespace Pad.Core
 			t.SetApartmentState(ApartmentState.STA);
 
 			t.Start();
-			t.Join();
+			t.Join(2000);
 
 			return value;
 		}
